@@ -1,85 +1,93 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref, watchEffect } from 'vue'
+
+const commits_api = `https://api.github.com/repos/jakekohl/jakekohl.github.io/commits?per_page=3&sha=`
+const branches_api = `https://api.github.com/repos/jakekohl/jakekohl.github.io/branches?per_page=5`
+const branches = getBranches()
+
+const currentBranch = ref(branches[0])
+const commits = ref([])
+
+watchEffect(async () => {
+  // this effect will run immediately and then
+  // re-run whenever currentBranch.value changes
+  const url = `${commits_api}${currentBranch.value}`
+  commits.value = await (await fetch(url)).json()
+})
+
+async function getBranches() {
+  try {
+    logMessage(`Pulling branches from jakekohl.github.io`)
+    const url = `${branches_api}`
+    const list = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github+json',
+      }
+    }).json()
+    logMessage(`Branches found!`)
+    logMessage(list)
+    return list
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+function truncate(v) {
+  const newline = v.indexOf('\n')
+  return newline > 0 ? v.slice(0, newline) : v
+}
+
+function formatDate(v) {
+  return v.replace(/T|Z/g, ' ')
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <h1>Latest Commits to jakekohl.github.io</h1>
+  <template v-for="branch in branches">
+    <input type="radio"
+      :id="branch"
+      :value="branch"
+      name="branch"
+      v-model="currentBranch">
+    <label :for="branch">{{ branch }}</label>
+  </template>
+  <p>jakekohl/jakekohl.github.io@{{ currentBranch }}</p>
+  <ul v-if="commits.length > 0">
+    <li v-for="{ html_url, sha, author, commit } in commits" :key="sha">
+      <a :href="html_url" target="_blank" class="commit">{{ sha.slice(0, 7) }}</a>
+      - <span class="message">{{ truncate(commit.message) }}</span><br>
+      by <span class="author">
+        <a :href="author.html_url" target="_blank">{{ commit.author.name }}</a>
+      </span>
+      at <span class="date">{{ formatDate(commit.author.date) }}</span>
+    </li>
+  </ul>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+a {
+  text-decoration: none;
+  color: #42b883;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+li {
+  line-height: 1.5em;
+  margin-bottom: 20px;
 }
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.author,
+.date {
+  font-weight: bold;
 }
 </style>
+
+<script>
+export default {
+  methods: {
+    logMessage(msg) {
+      console.log(msg);
+    }
+  }
+};
+</script>
