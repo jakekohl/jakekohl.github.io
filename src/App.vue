@@ -1,34 +1,53 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
 
-const commits_api = `https://api.github.com/repos/jakekohl/jakekohl.github.io/commits?per_page=3&sha=`
-const branches_api = `https://api.github.com/repos/jakekohl/jakekohl.github.io/branches?per_page=5`
-const branches = getBranches()
+const branches = await getBranches()
+const defaultBranch = branches[0]
+console.log(defaultBranch)
 
-const currentBranch = ref(branches[0])
+
 const commits = ref([])
+console.log(commits)
 
 watchEffect(async () => {
   // this effect will run immediately and then
   // re-run whenever currentBranch.value changes
-  const url = `${commits_api}${currentBranch.value}`
-  commits.value = await (await fetch(url)).json()
+  commits.value = await getCommits(defaultBranch)
 })
+
+async function getCommits(branch) {
+  try {
+    console.log(`Finding commits for ${branch.name}`)
+    const url = `https://api.github.com/repos/jakekohl/jakekohl.github.io/commits?per_page=3&sha=${branch.commit.sha}`
+    const resp = await fetch(url, {
+      method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github+json',
+        }
+    })
+    const data = await resp.json()
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+  
+}
 
 async function getBranches() {
   try {
     logMessage(`Pulling branches from jakekohl.github.io`)
-    const url = `${branches_api}`
-    const list = await fetch(url, {
+    const url = `https://api.github.com/repos/jakekohl/jakekohl.github.io/branches?per_page=3`
+    const resp = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+        'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
         'Accept': 'application/vnd.github+json',
       }
-    }).json()
+    })
+    const data = await resp.json()
     logMessage(`Branches found!`)
-    logMessage(list)
-    return list
+    return data
   } catch (e) {
     logMessage(e)
   }
@@ -52,13 +71,14 @@ function formatDate(v) {
   <h1>Latest Commits to jakekohl.github.io</h1>
   <template v-for="branch in branches">
     <input type="radio"
+      :data-entity="commit-radio-list"
       :id="branch"
       :value="branch"
       name="branch"
-      v-model="currentBranch">
+      v-model="defaultBranch">
     <label :for="branch">{{ branch }}</label>
   </template>
-  <p>jakekohl/jakekohl.github.io@{{ currentBranch }}</p>
+  <p>jakekohl/jakekohl.github.io@{{ defaultBranch.name }}</p>
   <ul v-if="commits.length > 0">
     <li v-for="{ html_url, sha, author, commit } in commits" :key="sha">
       <a :href="html_url" target="_blank" class="commit">{{ sha.slice(0, 7) }}</a>
