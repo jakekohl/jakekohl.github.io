@@ -14,4 +14,4 @@ jobs:
         username: '{{jakekohl}}'
         reponame: '{{jakekohl.github.io}}'
         token: ${{ secrets.GITHUB_TOKEN }} # no need to change this line this is used to create the branch in your application repository
-        basebranchname: origin/main
+        basebranchname: origin
