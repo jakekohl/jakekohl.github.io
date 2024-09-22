@@ -30,8 +30,12 @@ async function getBranches() {
     logMessage(list)
     return list
   } catch (e) {
-    console.error(e)
+    logMessage(e)
   }
+}
+
+function logMessage(msg) {
+  console.info(msg)
 }
 
 function truncate(v) {
@@ -81,13 +85,3 @@ li {
   font-weight: bold;
 }
 </style>
-
-<script>
-export default {
-  methods: {
-    logMessage(msg) {
-      console.log(msg);
-    }
-  }
-};
-</script>
