@@ -1,24 +1,23 @@
-name: 'Deploy to GitHub Pages - jakekohl.github.io'
+name: Deploy to GitHub Pages - jakekohl.github.io
 on: 
     push:
         branches:
-            - 'main'
+            - main
 
 jobs:
     deploy:
-        name: 'Deploy Application'
+        name: Deploy Application
         runs-on: 'ubuntu-latest'
         steps:
-            - name: 'Checkout Repo'
-                uses: 'actions/checkout@main'
-            - name: 'Create Node Environment'
-                uses: 'actions/setup-node@v1'
-                with: 
-                    node-version: 10.x
-            - name: 'Install Packages and Build Application'
-                run: |
-                    npm install 
-                    npm run build:doppler
-            - name: 'Deploy'
-                run: 'npm run deploy'
-                env: 'prod'
+            - name: Checkout Repo
+              uses: actions/checkout@main
+            - name: Create Node Environment
+              uses: actions/setup-node@v1
+              with: 
+                node-version: 10.x
+            - name: Install Packages and Build Application
+              run: |
+                  npm install 
+                  npm run build:doppler
+            - name: Deploy
+              run: npm run deploy
