@@ -15,7 +15,6 @@ jobs:
         reponame: '{{jakekohl.github.io}}'
         token: ${{ secrets.GITHUB_TOKEN }} # no need to change this line this is used to create the branch in your application repository
         basebranchname: main
-        buildscript: build:doppler
+        buildscript: build
         email: jacob.jp.kohl@gmail.com
         name: Jake Kohl
-        
