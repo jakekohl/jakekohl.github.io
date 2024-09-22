@@ -34,7 +34,7 @@ async function getCommits(branch) {
     const resp = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        'Authorization': `Bearer ${import.meta.env.VITE_GH}`,
         'Accept': 'application/vnd.github+json',
       }
     })
@@ -51,7 +51,7 @@ async function getBranches() {
     const resp = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        'Authorization': `Bearer ${import.meta.env.VITE_GH}`,
         'Accept': 'application/vnd.github+json',
       }
     })
