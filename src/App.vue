@@ -30,7 +30,7 @@ watch(currentBranch, async (newBranch) => {
 async function getCommits(branch) {
   try {
     const branchName = branch.name || 'main' // Fallback to 'main' if branch has no name
-    const url = `https://api.github.com/repos/jakekohl/jakekohl.github.io/commits?per_page=3&sha=${branchName}`
+    const url = `https://api.github.com/repos/jakekohl/jakekohl.github.io/commits?per_page=5&sha=${branchName}`
     const resp = await fetch(url, {
       method: 'GET',
       headers: {
@@ -47,7 +47,7 @@ async function getCommits(branch) {
 
 async function getBranches() {
   try {
-    const url = `https://api.github.com/repos/jakekohl/jakekohl.github.io/branches?per_page=3`
+    const url = `https://api.github.com/repos/jakekohl/jakekohl.github.io/branches?per_page=5`
     const resp = await fetch(url, {
       method: 'GET',
       headers: {
