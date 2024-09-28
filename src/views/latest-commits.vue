@@ -80,7 +80,9 @@ function formatDate(v) {
       <input type="radio" :id="branch.name" :value="branch" name="branch" v-model="currentBranch">
       <label :for="branch.name">{{ branch.name }}</label>
     </template>
-    <p v-if="currentBranch">{{ currentBranch.name }} branch</p>
+    <br>
+    <br>
+    <a :href="`https://github.com/jakekohl/${currentBranch.name}`" v-if="currentBranch">{{ currentBranch.name }} branch</a>
 
     <ul v-if="commits.length > 0">
       <li v-for="{ html_url, sha, author, commit } in commits" :key="sha">
