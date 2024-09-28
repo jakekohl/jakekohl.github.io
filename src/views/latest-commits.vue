@@ -55,7 +55,9 @@ async function getBranches() {
         'Accept': 'application/vnd.github+json',
       }
     })
-    return await resp.json()
+    const jsonResp = await resp.json();
+    console.log(jsonResp);
+    return jsonResp;
   } catch (e) {
     console.error("Error fetching branches:", e)
     return []
@@ -82,7 +84,7 @@ function formatDate(v) {
     </template>
     <br>
     <br>
-    <a :href="`https://github.com/jakekohl/${currentBranch.name}`" v-if="currentBranch">{{ currentBranch.name }} branch</a>
+    <a :href="`https://github.com/jakekohl/jakekohl.github.io/tree/${currentBranch.name}`" target=”_blank” v-if="currentBranch">{{ currentBranch.name }} branch</a>
 
     <ul v-if="commits.length > 0">
       <li v-for="{ html_url, sha, author, commit } in commits" :key="sha">
