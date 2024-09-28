@@ -55,9 +55,7 @@ async function getBranches() {
         'Accept': 'application/vnd.github+json',
       }
     })
-    const jsonResp = await resp.json();
-    console.log(jsonResp);
-    return jsonResp;
+    return await resp.json();
   } catch (e) {
     console.error("Error fetching branches:", e)
     return []
