@@ -31,5 +31,3 @@ coverage
 .vite
 
 *.tsbuildinfo
-
-auth_config.json
