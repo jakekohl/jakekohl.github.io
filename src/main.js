@@ -1,25 +1,17 @@
+// Vue / PrimeVue
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
 import PrimeVue from 'primevue/config';
-import Aura from '@primevue/themes/aura';
 
-// Create the app instance
+// Utils
+import primeVueConfig from './utils/primevue';
+
+
 const app = createApp(App);
+const config = primeVueConfig.config;
+console.debug(config);
 
-// Use the router
-app.use(router);
-app.use(PrimeVue, {
-  // Default theme configuration
-  theme: {
-      preset: Aura,
-      options: {
-          prefix: 'p',
-          darkModeSelector: 'system',
-          cssLayer: false
-      }
-  }
-});
+app.use(PrimeVue, config);
 
 // Mount the app
 app.mount('#app');
