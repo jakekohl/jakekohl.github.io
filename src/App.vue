@@ -8,6 +8,6 @@ console.debug('NODE_ENV:', nodeEnv);
 
 <template>
   <TopNavBar />
-  <ToolBar v-if="process.env.NODE_ENV === 'development'">Development Mode</ToolBar>
+  <ToolBar v-if="nodeEnv === 'DEV'">Development Mode</ToolBar>
   <RouterView />
 </template>
