@@ -14,7 +14,6 @@ dist-ssr
 coverage
 *.local
 
-# Cypress directories
 /cypress/videos/
 /cypress/screenshots/
 
@@ -27,7 +26,5 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-.env
-.vite
 
 *.tsbuildinfo
