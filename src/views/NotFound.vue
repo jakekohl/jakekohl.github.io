@@ -13,17 +13,17 @@ const goBack = () => {
 </script>
 
 <template>
-  <div class="notfound-container" data-testid="notfound-page">
+  <div class="notfound-container">
     <div class="content-wrapper">
       <PrimeCard class="notfound-card">
         <template #content>
-          <div class="notfound-content" data-testid="notfound-content">
+          <div class="notfound-content">
             <div class="error-icon">
               <i class="pi pi-exclamation-triangle"></i>
             </div>
-            <h1 class="error-title" data-testid="error-title">404</h1>
-            <h2 class="error-subtitle" data-testid="error-subtitle">Page Not Found</h2>
-            <p class="error-description" data-testid="error-description">
+            <h1 class="error-title">404</h1>
+            <h2 class="error-subtitle">Page Not Found</h2>
+            <p class="error-description">
               Oops! The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.
             </p>
             <div class="error-actions">
@@ -32,7 +32,6 @@ const goBack = () => {
                 icon="pi pi-home" 
                 size="large"
                 @click="goHome"
-                data-testid="go-home-button"
               />
               <PrimeButton 
                 label="Go Back" 
@@ -41,7 +40,6 @@ const goBack = () => {
                 severity="secondary"
                 outlined
                 @click="goBack"
-                data-testid="go-back-button"
               />
             </div>
           </div>

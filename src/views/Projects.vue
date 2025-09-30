@@ -6,6 +6,15 @@ const projects = ref([
     title: 'Personal Portfolio Website',
     description: 'A modern, responsive Vue.js portfolio built with PrimeVue components, featuring automated testing with Cypress and Playwright.',
     technologies: ['Vue.js', 'PrimeVue', 'Vite', 'Cypress', 'Playwright'],
+    skillsLeveraged: [
+      'Frontend Development',
+      'Component Architecture', 
+      'Automated Testing',
+      'Responsive Design',
+      'Git Version Control',
+      'CI/CD Pipeline',
+      'AI Agentic Development'
+    ],
     status: 'In Development',
     github: 'https://github.com/jakekohl/jakekohl.github.io',
     demo: 'https://jakekohl.github.io',
@@ -13,21 +22,21 @@ const projects = ref([
       'Responsive design with professional styling',
       'Component-based architecture',
       'Automated testing setup',
-      'GitHub Pages deployment'
+      'GitHub Pages deployment',
     ]
   }
 ]);
 </script>
 
 <template>
-  <div class="projects-container" data-testid="projects-page">
+  <div class="projects-container">
     <div class="content-wrapper">
       <div class="projects-header">
-        <h1 class="projects-title" data-testid="projects-title">
+        <h1 class="projects-title">
           <i class="pi pi-briefcase mr-3"></i>
           My Projects
         </h1>
-        <p class="projects-subtitle" data-testid="projects-subtitle">
+        <p class="projects-subtitle">
           A showcase of my development work and technical expertise
         </p>
       </div>
@@ -37,7 +46,6 @@ const projects = ref([
           v-for="project in projects" 
           :key="project.title" 
           class="project-card"
-          :data-testid="`project-${project.title.toLowerCase().replace(/\s+/g, '-')}`"
         >
           <template #header>
             <div class="project-header">
@@ -59,7 +67,21 @@ const projects = ref([
                   v-for="tech in project.technologies" 
                   :key="tech" 
                   :label="tech" 
+                  icon="pi pi-code"
                   class="tech-chip"
+                />
+              </div>
+            </div>
+
+            <div v-if="project.skillsLeveraged" class="project-skills">
+              <h4>Skills Leveraged:</h4>
+              <div class="skills-chips">
+                <PrimeChip 
+                  v-for="skill in project.skillsLeveraged" 
+                  :key="skill" 
+                  :label="skill" 
+                  icon="pi pi-star"
+                  class="skill-chip"
                 />
               </div>
             </div>
@@ -82,14 +104,12 @@ const projects = ref([
                 icon="pi pi-github" 
                 outlined 
                 @click="window.open(project.github, '_blank')"
-                :data-testid="`project-github-${project.title.toLowerCase().replace(/\s+/g, '-')}`"
               />
               <PrimeButton 
                 v-if="project.demo"
                 label="Live Demo" 
                 icon="pi pi-external-link" 
                 @click="window.open(project.demo, '_blank')"
-                :data-testid="`project-demo-${project.title.toLowerCase().replace(/\s+/g, '-')}`"
               />
             </div>
           </template>
@@ -188,6 +208,7 @@ const projects = ref([
 }
 
 .project-technologies h4,
+.project-skills h4,
 .project-features h4 {
   color: #374151;
   margin-bottom: 0.75rem;
@@ -195,7 +216,8 @@ const projects = ref([
   font-weight: 600;
 }
 
-.tech-chips {
+.tech-chips,
+.skills-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -205,6 +227,12 @@ const projects = ref([
 .tech-chip {
   background: #e0e7ff;
   color: #3730a3;
+}
+
+.skill-chip {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
 }
 
 .project-features ul {

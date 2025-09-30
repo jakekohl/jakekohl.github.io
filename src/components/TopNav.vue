@@ -14,13 +14,6 @@ const items = ref([
     }
   },
   {
-    label: 'About',
-    icon: 'pi pi-info-circle',
-    command: () => {
-      router.push('/about');
-    }
-  },
-  {
     label: 'Projects',
     icon: 'pi pi-briefcase',
     command: () => {
@@ -50,18 +43,14 @@ const isActiveRoute = (label) => {
 </script>
 
 <template>
-  <header data-testid="main-navigation">
+  <header>
     <div class="navigation-wrapper">
       <PrimeMenubar :model="items" class="professional-menubar">
         <template #start>
-          <div class="brand-section" @click="router.push('/')" data-testid="brand-logo">
-            <PrimeAvatar 
-              icon="pi pi-user" 
-              class="mr-2" 
-              style="background-color: #6366f1; color: white;"
-            />
+          <div class="brand-section" @click="router.push('/')">
             <span class="brand-text">Jake Kohl</span>
           </div>
+          <Divider type="vertical" />
         </template>
         <template #item="{ item, props, hasSubmenu, root }">
           <a 
@@ -69,7 +58,6 @@ const isActiveRoute = (label) => {
             class="flex items-center nav-item" 
             :class="{ 'active-nav': isActiveRoute(item.label) }"
             v-bind="props.action"
-            :data-testid="`nav-${item.label.toLowerCase()}`"
           >
             <i :class="item.icon" class="mr-2"></i>
             <span>{{ item.label }}</span>
@@ -77,11 +65,11 @@ const isActiveRoute = (label) => {
           </a>
         </template>
         <template #end>
-          <div class="social-links" data-testid="social-links">
-            <a href="https://github.com/jakekohl" target="_blank" rel="noopener" class="social-link" data-testid="github-link">
+          <div class="social-links">
+            <a href="https://github.com/jakekohl" target="_blank" rel="noopener" class="social-link">
               <i class="pi pi-github"></i>
             </a>
-            <a href="https://linkedin.com/in/jakekohl" target="_blank" rel="noopener" class="social-link" data-testid="linkedin-link">
+            <a href="https://linkedin.com/in/jacob-jp-kohl" target="_blank" rel="noopener" class="social-link">
               <i class="pi pi-linkedin"></i>
             </a>
           </div>
@@ -133,9 +121,9 @@ header {
 }
 
 .nav-item {
-  padding: 0.5rem 1rem;
-  margin: 0 0.25rem;
-  border-radius: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  margin: 0 0.3rem;
+  border-radius: 1rem;
   transition: all 0.3s ease;
   color: #475569;
   text-decoration: none;

@@ -1,28 +1,87 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const router = useRouter();
 
-const skills = ref([
-  { name: 'Vue.js', level: 90 },
-  { name: 'JavaScript/TypeScript', level: 95 },
-  { name: 'Test Automation', level: 85 },
-  { name: 'Node.js', level: 80 },
-  { name: 'Python', level: 75 }
+const testSkills = ref([
+  { name: 'API'},
+  { name: 'End-to-End'},
+  { name: 'Integration'},
+  { name: 'Performance'},
+  { name: 'Cypress'},
+  { name: 'Playwright'},
+]);
+
+const supportSkills = ref([
+  { name: 'Technical Support'},
+  { name: 'Troubleshooting'},
+  { name: 'Log Analysis'},
+  { name: 'Infrastructure Management'},
+  { name: 'Database Management'},
+  { name: 'Technical Documentation'},
+  { name: 'Incident Management'},
+  { name: 'Escalation Management'},
+]);
+
+const devSkills = ref([
+  { name: 'Backend Development'},
+  { name: 'Debugging'},
+  { name: 'Requirements Review'},
+  { name: 'CI/CD'},
+  { name: 'Code Review'},
+  { name: 'ETL'},
+  { name: 'Vue.js'},
+  { name: 'Express.js'},
+  { name: 'JavaScript'},
+  { name: 'TypeScript'},
+  { name: 'Java'},
+  { name: 'Python'},
+  { name: 'Git'},
+  { name: 'GitHub'},
+]);
+
+const infrastructureSkills = ref([
+  { name: 'AWS'},
+  { name: 'ECS'},
+  { name: 'EC2'},
+  { name: 'Lambda'},
+  { name: 'S3'},
+  { name: 'RDS'},
+  { name: 'Cloudwatch'},
+  { name: 'Wildfly/Jboss'},
+  { name: 'RabbitMQ'},
+  { name: 'SQL Server'},
+  { name: 'MongoDB'},
+  { name: 'PostgreSQL'},
+  { name: 'SSAS'},
+  { name: 'SSRS'},
+  { name: 'Windows Server'}
+]);
+
+const softSkills = ref([
+  { name: 'Communication'},
+  { name: 'Collaboration'},
+  { name: 'Problem Solving'},
+  { name: 'Time Management'},
+  { name: 'Adaptability'},
+  { name: 'Leadership'},
+  { name: 'Training'},
+  { name: 'Project Management'},
+  { name: 'Training'},
+  { name: 'Team Management'},
 ]);
 
 const stats = ref([
-  { label: 'Years Experience', value: '5+', icon: 'pi pi-calendar' },
-  { label: 'Projects Completed', value: '25+', icon: 'pi pi-briefcase' },
-  { label: 'Technologies Mastered', value: '15+', icon: 'pi pi-cog' },
-  { label: 'Happy Clients', value: '20+', icon: 'pi pi-heart' }
+  { label: 'Quality Assurance', value: '5', icon: 'pi pi-hammer' },
+  { label: 'Technical Support', value: '8', icon: 'pi pi-search' },
+  { label: 'Technical Leadership', value: '4', icon: 'pi pi-arrow-up-right' },
+  { label: 'Management', value: '1', icon: 'pi pi-users' }
 ]);
 
 const navigateToSection = (route) => {
   router.push(route);
 };
-
 const downloadResume = () => {
   // Placeholder for resume download functionality
   alert('Resume download would be implemented here');
@@ -30,21 +89,21 @@ const downloadResume = () => {
 </script>
 
 <template>
-  <div class="home-container" data-testid="home-page">
+  <div class="home-container">
     <!-- Hero Section -->
-    <section class="hero-section" data-testid="hero-section">
+    <section class="hero-section">
       <div class="hero-content">
         <div class="hero-text">
-          <h1 class="hero-title" data-testid="hero-title">
+          <h1 class="hero-title">
             Hi, I'm 
             <span class="name-highlight">Jake Kohl</span>
           </h1>
-          <h2 class="hero-subtitle" data-testid="hero-subtitle">
-            Full-Stack Developer & Test Automation Specialist
+          <h2 class="hero-subtitle">
+            Quality Assurance Engineer | Test Automation Enthusiast
           </h2>
-          <p class="hero-description" data-testid="hero-description">
-            Passionate about creating robust, scalable applications and comprehensive testing solutions. 
-            I specialize in modern web technologies and automated testing frameworks to deliver high-quality software.
+          <p class="hero-description">
+            Passionate about creating comprehensive testing solutions within <b>Cypress</b> and <b>Playwright</b>.
+            With an automation first approach to testing and significant experience in <b>technical support</b>, I strive to create scalable testing strategies that does not compromise on speed or quality.
           </p>
           <div class="hero-actions">
             <PrimeButton 
@@ -52,7 +111,6 @@ const downloadResume = () => {
               icon="pi pi-briefcase" 
               size="large"
               @click="navigateToSection('/projects')"
-              data-testid="hero-projects-button"
             />
             <PrimeButton 
               label="Download Resume" 
@@ -61,30 +119,29 @@ const downloadResume = () => {
               size="large"
               outlined
               @click="downloadResume"
-              data-testid="hero-resume-button"
             />
           </div>
         </div>
         <div class="hero-image">
           <PrimeAvatar 
-            icon="pi pi-user" 
+            image="https://avatars.githubusercontent.com/u/9215669?v=4"
             size="xlarge"
+            shape="circle"
             class="profile-avatar"
-            data-testid="profile-avatar"
           />
         </div>
       </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section" data-testid="stats-section">
+    <section class="stats-section">
+      <h1 class="section-title">Professional Experience (Years)</h1>
       <div class="content-wrapper">
         <div class="stats-grid">
           <div 
             v-for="stat in stats" 
             :key="stat.label" 
             class="stat-card"
-            :data-testid="`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <PrimeCard class="stat-card-inner">
               <template #content>
@@ -101,40 +158,74 @@ const downloadResume = () => {
     </section>
 
     <!-- Skills Preview Section -->
-    <section class="skills-preview-section" data-testid="skills-preview-section">
+    <section class="skills-preview-section">
       <div class="content-wrapper">
         <h3 class="section-title">Technical Expertise</h3>
+        <h4 class="skill-category">Development</h4>
         <div class="skills-grid">
           <div 
-            v-for="skill in skills" 
+            v-for="skill in devSkills" 
             :key="skill.name" 
             class="skill-item"
-            :data-testid="`skill-${skill.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
-              <span class="skill-percentage">{{ skill.level }}%</span>
             </div>
-            <PrimeProgressBar 
-              :value="skill.level" 
-              class="skill-progress"
-            />
           </div>
         </div>
-        <div class="skills-cta">
-          <PrimeButton 
-            label="Learn More About Me" 
-            icon="pi pi-arrow-right" 
-            severity="secondary"
-            @click="navigateToSection('/about')"
-            data-testid="about-cta-button"
-          />
+        <h4 class="skill-category">Testing</h4>
+        <div class="skills-grid">
+          <div 
+            v-for="skill in testSkills" 
+            :key="skill.name" 
+            class="skill-item"
+          >
+            <div class="skill-header">
+              <span class="skill-name">{{ skill.name }}</span>
+            </div>
+          </div>
+        </div>
+        <h4 class="skill-category">Infrastructure</h4>
+        <div class="skills-grid">
+          <div 
+            v-for="skill in infrastructureSkills" 
+            :key="skill.name" 
+            class="skill-item"
+          >
+            <div class="skill-header">
+              <span class="skill-name">{{ skill.name }}</span>
+            </div>
+          </div>
+        </div>
+        <h4 class="skill-category">Support</h4>
+        <div class="skills-grid">
+          <div 
+            v-for="skill in supportSkills" 
+            :key="skill.name" 
+            class="skill-item"
+          >
+            <div class="skill-header">
+              <span class="skill-name">{{ skill.name }}</span>
+            </div>
+          </div>
+        </div>
+        <h4 class="skill-category">Soft Skills</h4>
+        <div class="skills-grid">
+          <div 
+            v-for="skill in softSkills" 
+            :key="skill.name" 
+            class="skill-item"
+          >
+            <div class="skill-header">
+              <span class="skill-name">{{ skill.name }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" data-testid="cta-section">
+    <section class="cta-section">
       <div class="content-wrapper">
         <PrimeCard class="cta-card">
           <template #content>
@@ -146,7 +237,6 @@ const downloadResume = () => {
                 icon="pi pi-envelope" 
                 size="large"
                 @click="navigateToSection('/contact')"
-                data-testid="contact-cta-button"
               />
             </div>
           </template>
@@ -305,6 +395,7 @@ const downloadResume = () => {
 
 .skills-grid {
   display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
@@ -410,6 +501,17 @@ const downloadResume = () => {
   
   .section-title {
     font-size: 2rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 </style>
