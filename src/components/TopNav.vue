@@ -9,6 +9,7 @@ const items = ref([
   {
     label: 'Home',
     icon: 'pi pi-home',
+    dataTest: 'nav-home',
     command: () => {
       router.push('/');
     }
@@ -16,6 +17,7 @@ const items = ref([
   {
     label: 'Projects',
     icon: 'pi pi-briefcase',
+    dataTest: 'nav-projects',
     command: () => {
       router.push('/projects');
     }
@@ -23,9 +25,23 @@ const items = ref([
   {
     label: 'Contact',
     icon: 'pi pi-envelope',
+    dataTest: 'nav-contact',
     command: () => {
       router.push('/contact');
     }
+  }
+]);
+
+const socialLinks = ref([
+  {
+    icon: 'pi pi-github',
+    link: 'https://github.com/jakekohl',
+    dataTest: 'social-github'
+  },
+  {
+    icon: 'pi pi-linkedin',
+    link: 'https://linkedin.com/in/jacob-jp-kohl',
+    dataTest: 'social-linkedin'
   }
 ]);
 
@@ -58,6 +74,7 @@ const isActiveRoute = (label) => {
             class="flex items-center nav-item" 
             :class="{ 'active-nav': isActiveRoute(item.label) }"
             v-bind="props.action"
+            :data-test="item.dataTest"
           >
             <i :class="item.icon" class="mr-2"></i>
             <span>{{ item.label }}</span>
@@ -66,11 +83,8 @@ const isActiveRoute = (label) => {
         </template>
         <template #end>
           <div class="social-links">
-            <a href="https://github.com/jakekohl" target="_blank" rel="noopener" class="social-link">
-              <i class="pi pi-github"></i>
-            </a>
-            <a href="https://linkedin.com/in/jacob-jp-kohl" target="_blank" rel="noopener" class="social-link">
-              <i class="pi pi-linkedin"></i>
+            <a v-for="link in socialLinks" :key="link.link" :href="link.link" target="_blank" rel="noopener" class="social-link" :data-test="link.dataTest">
+              <i :class="link.icon"></i>
             </a>
           </div>
         </template>

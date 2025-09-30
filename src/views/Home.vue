@@ -110,6 +110,7 @@ const downloadResume = () => {
               label="View My Work" 
               icon="pi pi-briefcase" 
               size="large"
+              data-test="hero-projects-button"
               @click="navigateToSection('/projects')"
             />
             <PrimeButton 
@@ -118,6 +119,7 @@ const downloadResume = () => {
               severity="secondary"
               size="large"
               outlined
+              data-test="hero-resume-button"
               @click="downloadResume"
             />
           </div>
@@ -128,6 +130,7 @@ const downloadResume = () => {
             size="xlarge"
             shape="circle"
             class="profile-avatar"
+            data-test="profile-avatar"
           />
         </div>
       </div>
@@ -142,6 +145,7 @@ const downloadResume = () => {
             v-for="stat in stats" 
             :key="stat.label" 
             class="stat-card"
+            :data-test="`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <PrimeCard class="stat-card-inner">
               <template #content>
@@ -158,7 +162,7 @@ const downloadResume = () => {
     </section>
 
     <!-- Skills Preview Section -->
-    <section class="skills-preview-section">
+    <section class="skills-preview-section" data-test="skills-preview-section">
       <div class="content-wrapper">
         <h3 class="section-title">Technical Expertise</h3>
         <h4 class="skill-category">Development</h4>
@@ -167,6 +171,7 @@ const downloadResume = () => {
             v-for="skill in devSkills" 
             :key="skill.name" 
             class="skill-item"
+            :data-test="`dev-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -179,6 +184,7 @@ const downloadResume = () => {
             v-for="skill in testSkills" 
             :key="skill.name" 
             class="skill-item"
+            :data-test="`test-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -191,6 +197,7 @@ const downloadResume = () => {
             v-for="skill in infrastructureSkills" 
             :key="skill.name" 
             class="skill-item"
+            :data-test="`infrastructure-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -203,6 +210,7 @@ const downloadResume = () => {
             v-for="skill in supportSkills" 
             :key="skill.name" 
             class="skill-item"
+            :data-test="`support-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -215,6 +223,7 @@ const downloadResume = () => {
             v-for="skill in softSkills" 
             :key="skill.name" 
             class="skill-item"
+            :data-test="`soft-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -225,7 +234,7 @@ const downloadResume = () => {
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section" data-test="cta-section">
       <div class="content-wrapper">
         <PrimeCard class="cta-card">
           <template #content>
@@ -236,6 +245,7 @@ const downloadResume = () => {
                 label="Get in Touch" 
                 icon="pi pi-envelope" 
                 size="large"
+                data-test="contact-cta-button"
                 @click="navigateToSection('/contact')"
               />
             </div>
