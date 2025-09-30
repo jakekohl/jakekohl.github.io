@@ -23,7 +23,8 @@ const projects = ref([
       'Component-based architecture',
       'Automated testing setup',
       'GitHub Pages deployment',
-    ]
+    ],
+    dataTest: 'project-portfolio'
   }
 ]);
 </script>
@@ -46,6 +47,7 @@ const projects = ref([
           v-for="project in projects" 
           :key="project.title" 
           class="project-card"
+          :data-test="project.dataTest"
         >
           <template #header>
             <div class="project-header">
@@ -54,6 +56,7 @@ const projects = ref([
                 :value="project.status" 
                 :severity="project.status === 'In Development' ? 'info' : 'success'"
                 class="project-status"
+                data-test="project-status"
               />
             </div>
           </template>

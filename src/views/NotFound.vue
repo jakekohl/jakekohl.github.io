@@ -15,7 +15,7 @@ const goBack = () => {
 <template>
   <div class="notfound-container">
     <div class="content-wrapper">
-      <PrimeCard class="notfound-card">
+      <PrimeCard class="notfound-card" data-test="not-found-page">
         <template #content>
           <div class="notfound-content">
             <div class="error-icon">

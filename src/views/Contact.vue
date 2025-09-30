@@ -7,35 +7,40 @@ const contactInfo = ref([
     value: 'jacob.jp.kohl@gmail.com',
     icon: 'pi pi-envelope',
     link: 'mailto:jacob.jp.kohl@gmail.com',
-    description: 'Best way to reach me for professional inquiries'
+    description: 'Best way to reach me for professional inquiries',
+    dataTest: 'contact-email'
   },
   {
     type: 'LinkedIn',
     value: 'Jacob Kohl',
     icon: 'pi pi-linkedin',
     link: 'https://linkedin.com/in/jacob-jp-kohl',
-    description: 'Connect with me professionally'
+    description: 'Connect with me professionally',
+    dataTest: 'contact-linkedin'
   },
   {
     type: 'GitHub',
     value: 'jakekohl',
     icon: 'pi pi-github',
     link: 'https://github.com/jakekohl',
-    description: 'Check out my code and projects'
+    description: 'Check out my code and projects',
+    dataTest: 'contact-github'
   },
   {
     type: 'Discord',
     value: 'hawkeye.59',
     icon: 'pi pi-discord',
     link: 'https://github.com/jakekohl#:~:text=https%3A//discordapp.com/users/1097326508814639194',
-    description: 'Chat with me on Discord for quick discussions'
+    description: 'Chat with me on Discord for quick discussions',
+    dataTest: 'contact-discord'
   },
   {
     type: '(Twitter)',
     value: '@jacobofwonder',
     icon: 'pi pi-twitter',
     link: 'https://x.com/jacobofwonder',
-    description: 'I post on X every now and then but it\'s not my main platform'
+    description: 'I post on X every now and then but it\'s not my main platform',
+    dataTest: 'contact-twitter'
   }
 ]);
 
@@ -43,17 +48,20 @@ const specialties = ref([
   {
     title: 'Test Automation',
     description: 'Cypress, Playwright, and comprehensive testing strategies',
-    icon: 'pi pi-cog'
+    icon: 'pi pi-cog',
+    dataTest: 'contact-test-automation'
   },
   {
     title: 'Consulting & Mentoring',
     description: 'Technical guidance, code reviews, and team mentoring',
-    icon: 'pi pi-users'
+    icon: 'pi pi-users',
+    dataTest: 'contact-consulting-mentoring'
   },
   { 
     title: 'Development Side Projects',
     description: 'Coding, testing, and more! Always learning and growing.',
-    icon: 'pi pi-code'
+    icon: 'pi pi-code',
+    dataTest: 'contact-development-side-projects'
   }
 ]);
 
@@ -104,6 +112,7 @@ const copyToClipboard = async (text) => {
               v-for="contact in contactInfo" 
               :key="contact.type" 
               class="contact-card"
+              :data-test="contact.dataTest"
             >
               <template #content>
                 <div class="contact-card-content">
@@ -114,7 +123,7 @@ const copyToClipboard = async (text) => {
                     <h3 class="contact-type">{{ contact.type }}</h3>
                   </div>
                   <div class="contact-value-wrapper">
-                    <a v-if="contact.link" :href="contact.link" target="_blank" class="contact-value">
+                    <a v-if="contact.link" :href="contact.link" target="_blank" class="contact-value" :data-test="`contact-url`">
                       {{ contact.value }}
                     </a>
                     <span v-else class="contact-value">{{ contact.value }}</span>
@@ -123,6 +132,7 @@ const copyToClipboard = async (text) => {
                       size="small"
                       severity="secondary"
                       outlined
+                      :data-test="`contact-copy`"
                       @click="copyToClipboard(contact.value)"
                     />
                   </div>
@@ -141,6 +151,7 @@ const copyToClipboard = async (text) => {
               v-for="specialty in specialties" 
               :key="specialty.title" 
               class="specialty-card"
+              :data-test="specialty.dataTest"
             >
               <template #content>
                 <div class="specialty-content">
