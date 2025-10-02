@@ -91,7 +91,7 @@ const downloadResume = () => {
 <template>
   <div class="home-container">
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" data-test="hero-section">
       <div class="hero-content">
         <div class="hero-text">
           <h1 class="hero-title">
@@ -137,7 +137,7 @@ const downloadResume = () => {
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
+    <section class="stats-section" data-test="stats-section">
       <h1 class="section-title">Professional Experience (Years)</h1>
       <div class="content-wrapper">
         <div class="stats-grid">
@@ -162,7 +162,7 @@ const downloadResume = () => {
     </section>
 
     <!-- Skills Preview Section -->
-    <section class="skills-preview-section" data-test="skills-preview-section">
+    <section class="skills-preview-section" data-test="skills-section">
       <div class="content-wrapper">
         <h3 class="section-title">Technical Expertise</h3>
         <h4 class="skill-category">Development</h4>

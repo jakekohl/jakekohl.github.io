@@ -10,11 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prepare": "cypress install",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
-    "test:unit": "cypress run --component",
-    "test:unit:dev": "cypress open --component",
+    "cy:open": "cypress open",
     "lint": "eslint . --fix"
   },
   "dependencies": {
@@ -27,7 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@vitejs/plugin-vue": "^6.0.1",
-    "cypress": "^14.5.3",
+    "cypress": "^15.3.0",
     "eslint": "^9.31.0",
     "eslint-plugin-cypress": "^5.1.0",
     "eslint-plugin-vue": "~10.3.0",
