@@ -75,8 +75,10 @@ const softSkills = ref([
 const stats = ref([
   { label: 'Quality Assurance', value: '5', icon: 'pi pi-hammer' },
   { label: 'Technical Support', value: '8', icon: 'pi pi-search' },
+  { label: 'Software Development', value: '3', icon: 'pi pi-code' },
+  { label: 'Infrastructure', value: '6', icon: 'pi pi-server' },
   { label: 'Technical Leadership', value: '4', icon: 'pi pi-arrow-up-right' },
-  { label: 'Management', value: '1', icon: 'pi pi-users' }
+  { label: 'Management', value: '1', icon: 'pi pi-users' },
 ]);
 
 const navigateToSection = (route) => {
@@ -91,7 +93,7 @@ const downloadResume = () => {
 <template>
   <div class="home-container">
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" data-test="hero-section">
       <div class="hero-content">
         <div class="hero-text">
           <h1 class="hero-title">
@@ -137,7 +139,7 @@ const downloadResume = () => {
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
+    <section class="stats-section" data-test="stats-section">
       <h1 class="section-title">Professional Experience (Years)</h1>
       <div class="content-wrapper">
         <div class="stats-grid">
@@ -162,16 +164,15 @@ const downloadResume = () => {
     </section>
 
     <!-- Skills Preview Section -->
-    <section class="skills-preview-section" data-test="skills-preview-section">
+    <section class="skills-preview-section" data-test="skills-section">
       <div class="content-wrapper">
         <h3 class="section-title">Technical Expertise</h3>
         <h4 class="skill-category">Development</h4>
-        <div class="skills-grid">
+        <div class="skills-grid" data-test="skill-domain-development">
           <div 
             v-for="skill in devSkills" 
             :key="skill.name" 
             class="skill-item"
-            :data-test="`dev-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -179,12 +180,11 @@ const downloadResume = () => {
           </div>
         </div>
         <h4 class="skill-category">Testing</h4>
-        <div class="skills-grid">
+        <div class="skills-grid" data-test="skill-domain-testing">
           <div 
             v-for="skill in testSkills" 
             :key="skill.name" 
             class="skill-item"
-            :data-test="`test-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -192,12 +192,11 @@ const downloadResume = () => {
           </div>
         </div>
         <h4 class="skill-category">Infrastructure</h4>
-        <div class="skills-grid">
+        <div class="skills-grid" data-test="skill-domain-infrastructure">
           <div 
             v-for="skill in infrastructureSkills" 
             :key="skill.name" 
             class="skill-item"
-            :data-test="`infrastructure-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -205,12 +204,11 @@ const downloadResume = () => {
           </div>
         </div>
         <h4 class="skill-category">Support</h4>
-        <div class="skills-grid">
+        <div class="skills-grid" data-test="skill-domain-support">
           <div 
             v-for="skill in supportSkills" 
             :key="skill.name" 
             class="skill-item"
-            :data-test="`support-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>
@@ -218,12 +216,11 @@ const downloadResume = () => {
           </div>
         </div>
         <h4 class="skill-category">Soft Skills</h4>
-        <div class="skills-grid">
+        <div class="skills-grid" data-test="skill-domain-soft-skills">
           <div 
             v-for="skill in softSkills" 
             :key="skill.name" 
             class="skill-item"
-            :data-test="`soft-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`"
           >
             <div class="skill-header">
               <span class="skill-name">{{ skill.name }}</span>

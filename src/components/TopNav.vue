@@ -59,11 +59,11 @@ const isActiveRoute = (label) => {
 </script>
 
 <template>
-  <header>
+  <header data-test="nav-top-menubar">
     <div class="navigation-wrapper">
       <PrimeMenubar :model="items" class="professional-menubar">
         <template #start>
-          <div class="brand-section" @click="router.push('/')">
+          <div class="brand-section" @click="router.push('/')" data-test="brand-slot">
             <span class="brand-text">Jake Kohl</span>
           </div>
           <Divider type="vertical" />
