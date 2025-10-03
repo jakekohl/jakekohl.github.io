@@ -1,57 +1,52 @@
-# vue-project
+# jakekohl.github.io (aka, the Professional Portfolio that is also a sandbox)
 
-This template should help get you started developing with Vue 3 in Vite.
+Hey there! 👋
 
-## Recommended IDE Setup
+This project is my personal professional portfolio—a place to highlight my work, skills, and experience in tech. But it’s more than just a digital resume. I built this site as a hands-on sandbox for experimenting with modern web development tools, frameworks, and best practices. 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+One of my main goals here is to showcase robust test automation, so you’ll find real-world implementations of both **Cypress** and **PlayWright** throughout the codebase. Whether you’re a recruiter, a fellow developer, or just curious, feel free to poke around and see how I approach building, testing, and continuously improving QA Test Automations within modern web applications!
 
-## Customize configuration
+## Current Technologies Implemented
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+This project leverages a modern web stack and several best-in-class tools:
 
-## Project Setup
+- **Vue 3**: The core framework for building the user interface.
+- **PrimeVue**: A rich UI component library for Vue, used extensively for layout and interactive elements.
+- **Cypress**: End-to-end and component testing framework, with custom commands and workflows implemented.
+- **Playwright**: Planned for future implementation as an additional E2E testing solution.
+- **Vite**: Lightning-fast build tool and development server.
+- **Other Node Packages**: For a full list of dependencies and devDependencies, see the [package.json](./package.json).
 
-```sh
-npm install
+You’ll find these technologies reflected throughout the codebase, with more details and specific versions in the [package.json](./package.json).
+
+
+## Cypress & Playwright
+
+### Current Test Results
+Cypress Cloud Results can be found here, where you can see history of runs through local development and from the CI/CD Pipeline
+[![jakekohl.github.io](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/kz76nf&style=for-the-badge&logo=cypress)](https://cloud.cypress.io/projects/kz76nf/runs)
+
+
+### Running Cypress Tests
+
+You can run the Cypress test suite against the deployed site (`https://jakekohl.github.io`) or locally after cloning the repository. Below are step-by-step instructions for both approaches.
+
+```
+# Clone this repo
+git clone https://github.com/jakekohl/jakekohl.github.io
+
+# Install packages
+npm i
+
+# Run Cypress locally against the deployed site
+npx cypress run --config baseUrl=https://jakekohl.github.io
+
+# Or open the Cypress UI with the deployed site as baseUrl
+npx cypress open --config baseUrl=https://jakekohl.github.io
+
+# If you want to run this locally, you can run the source code locally and run Cypress locally
+npm run dev && npm run cy:open
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
-
-```sh
-npm run test:unit:dev # or `npm run test:unit` for headless testing
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+### Running Playwright Test Automations
+`Coming Soon`
