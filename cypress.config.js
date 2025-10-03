@@ -1,8 +1,8 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   projectId: 'kz76nf',
-  retries: { "runMode": 1, "openMode": 0 },
+  retries: { runMode: 1, openMode: 0 },
   defaultBrowser: 'electron',
   viewportWidth: 1920,
   viewportHeight: 1080,
@@ -17,4 +17,4 @@ export default defineConfig({
       bundler: 'vite',
     },
   },
-})
+});

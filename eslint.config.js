@@ -1,9 +1,9 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
-import globals from 'globals'
-import js from '@eslint/js'
-import pluginVue from 'eslint-plugin-vue'
-import pluginCypress from 'eslint-plugin-cypress'
-import pluginImport from 'eslint-plugin-import'
+import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import js from '@eslint/js';
+import pluginVue from 'eslint-plugin-vue';
+import pluginCypress from 'eslint-plugin-cypress';
+import pluginImport from 'eslint-plugin-import';
 
 export default defineConfig([
   {
@@ -127,7 +127,7 @@ export default defineConfig([
       // Airbnb style rules
       'no-console': 'warn',
       'no-debugger': 'error',
-      'no-unused-vars': ['error', { 
+      'no-unused-vars': ['error', {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
       }],
@@ -145,7 +145,7 @@ export default defineConfig([
       'key-spacing': 'error',
       'keyword-spacing': 'error',
       'object-curly-spacing': ['error', 'always'],
-      'semi': ['error', 'always'],
+      semi: ['error', 'always'],
       'space-before-blocks': 'error',
       'space-before-function-paren': ['error', {
         anonymous: 'always',
@@ -156,12 +156,12 @@ export default defineConfig([
       'space-infix-ops': 'error',
       'space-unary-ops': 'error',
       'spaced-comment': ['error', 'always'],
-      'quotes': ['error', 'single', { avoidEscape: true }],
+      quotes: ['error', 'single', { avoidEscape: true }],
       'jsx-quotes': ['error', 'prefer-double'],
       'no-trailing-spaces': 'error',
       'eol-last': 'error',
       'no-multiple-empty-lines': ['error', { max: 2, maxEOF: 1 }],
-      'indent': ['error', 2, { SwitchCase: 1 }],
+      indent: ['error', 2, { SwitchCase: 1 }],
       'max-len': ['error', {
         code: 100,
         ignoreUrls: true,
@@ -173,19 +173,19 @@ export default defineConfig([
       'no-tabs': 'error',
       'array-bracket-spacing': ['error', 'never'],
       'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-      'camelcase': ['error', { properties: 'never' }],
+      camelcase: ['error', { properties: 'never' }],
       'consistent-return': 'error',
-      'curly': ['error', 'all'],
+      curly: ['error', 'all'],
       'dot-notation': 'error',
-      'eqeqeq': ['error', 'always'],
+      eqeqeq: ['error', 'always'],
       'no-alert': 'error',
       'no-eval': 'error',
       'no-implied-eval': 'error',
       'no-new-func': 'error',
       'no-script-url': 'error',
-      'radix': 'error',
+      radix: 'error',
       'wrap-iife': ['error', 'outside'],
-      'yoda': 'error',
+      yoda: 'error',
       'no-else-return': 'error',
       'no-empty-function': 'error',
       'no-extra-bind': 'error',
@@ -244,7 +244,7 @@ export default defineConfig([
     files: [
       '**/__tests__/*.{cy,spec}.{js,ts,jsx,tsx}',
       'cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
-      'cypress/support/**/*.{js,ts,jsx,tsx}'
+      'cypress/support/**/*.{js,ts,jsx,tsx}',
     ],
     languageOptions: {
       globals: {
@@ -259,13 +259,13 @@ export default defineConfig([
       },
     },
     rules: {
-      // Cypress best practices
+      // Cypress best practices (only valid rules from eslint-plugin-cypress 5.1.0)
       'cypress/no-unnecessary-waiting': 'error',
-      'cypress/assertion-before-screenshot': 'warn',
-      'cypress/require-data-selectors': 'warn',
-      'cypress/no-force': 'warn',
-      'cypress/prefer-find': 'error',
-      'cypress/prefer-commands-over-utilities': 'error',
+      'cypress/no-assigning-return-values': 'error',
+      'cypress/no-async-tests': 'error',
+      'cypress/no-async-before': 'error',
+      'cypress/no-pause': 'error',
+      'cypress/no-debug': 'error',
       // Relax some rules for test files
       'no-console': 'off',
       'max-len': ['error', {
@@ -278,4 +278,4 @@ export default defineConfig([
       'no-undef': 'off',
     },
   },
-])
+]);
