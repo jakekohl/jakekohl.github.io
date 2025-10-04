@@ -63,7 +63,7 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
           <p class="section-subtitle">Projects currently in development</p>
         </div>
         
-        <div class="projects-grid">
+        <div class="projects-grid" data-test="ongoing-projects">
           <PrimeCard 
             v-for="project in ongoingProjects" 
             :key="project.title" 
@@ -72,7 +72,7 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
           >
             <template #header>
               <div class="project-header">
-                <h3 class="project-title">{{ project.title }}</h3>
+                <h3 class="project-title" data-test="project-title">{{ project.title }}</h3>
                 <PrimeTag 
                   :value="project.status" 
                   :severity="project.status === 'In Development' ? 'info' : 'warning'"
@@ -82,10 +82,10 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
               </div>
             </template>
             <template #content>
-              <p class="project-description">{{ project.description }}</p>
+              <p class="project-description" data-test="project-description">{{ project.description }}</p>
               
               <!-- Project Images -->
-              <div v-if="project.images && project.images.length > 0" class="project-images">
+              <div v-if="project.images && project.images.length > 0" class="project-images" data-test="project-images">
                 <h4>Project Screenshots:</h4>
                 <div class="images-grid">
                   <div 
@@ -104,7 +104,7 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
                 </div>
               </div>
               
-              <div class="project-technologies">
+              <div class="project-technologies" data-test="project-technologies">
                 <h4>Technologies Used:</h4>
                 <div class="tech-chips">
                   <PrimeChip 
@@ -116,7 +116,7 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
                 </div>
               </div>
 
-              <div v-if="project.skillsLeveraged" class="project-skills">
+              <div v-if="project.skillsLeveraged" class="project-skills" data-test="project-skills">
                 <h4>Skills Leveraged:</h4>
                 <div class="skills-chips">
                   <PrimeChip 
@@ -128,7 +128,7 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
                 </div>
               </div>
 
-              <div v-if="project.features" class="project-features">
+              <div v-if="project.features" class="project-features" data-test="project-features">
                 <h4>Key Features:</h4>
                 <ul>
                   <li v-for="feature in project.features" :key="feature">
@@ -144,13 +144,15 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
                   v-if="project.github"
                   label="View Code" 
                   icon="pi pi-github" 
-                  outlined 
+                  outlined
+                  data-test="project-code-button"
                   @click="window.open(project.github, '_blank')"
                 />
                 <PrimeButton 
                   v-if="project.demo"
                   label="Live Demo" 
                   icon="pi pi-external-link" 
+                  data-test="project-demo-button"
                   @click="window.open(project.demo, '_blank')"
                 />
               </div>
