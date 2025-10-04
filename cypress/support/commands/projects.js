@@ -1,6 +1,6 @@
 /**
  * Validates a project card
- * 
+ *
  * @param {Object} project - The project object
  * @param {string} project.title - The project title
  * @param {string} project.status - The project status
