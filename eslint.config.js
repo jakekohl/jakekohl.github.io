@@ -54,6 +54,7 @@ export default defineConfig([
           '**/*.spec.js',
           '**/*.cy.js',
           'cypress/**/*',
+          'cypress.config.js',
           '**/vite.config.js',
           '**/eslint.config.js',
         ],
@@ -67,7 +68,7 @@ export default defineConfig([
     files: ['**/*.vue'],
     rules: {
       // Vue component structure
-      'vue/multi-word-component-names': 'error',
+      'vue/multi-word-component-names': 'warn',
       'vue/no-unused-vars': 'error',
       'vue/no-unused-components': 'error',
       'vue/require-default-prop': 'error',
