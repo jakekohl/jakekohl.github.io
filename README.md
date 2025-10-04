@@ -24,6 +24,7 @@ You’ll find these technologies reflected throughout the codebase, with more de
 
 ### Current Test Results
 Cypress Cloud Results can be found here, where you can see history of runs through local development and from the CI/CD Pipeline
+
 [![jakekohl.github.io](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/kz76nf&style=for-the-badge&logo=cypress)](https://cloud.cypress.io/projects/kz76nf/runs)
 
 

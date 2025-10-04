@@ -23,5 +23,5 @@ export default {
     app.component('PrimePanel', Panel);
     app.component('PrimeTimeline', Timeline);
     app.component('PrimeProgressBar', ProgressBar);
-  }
-}
+  },
+};

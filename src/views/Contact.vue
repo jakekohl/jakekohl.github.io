@@ -65,11 +65,11 @@ const specialties = ref([
   }
 ]);
 
-const openExternalLink = (url) => {
-  if (url) {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }
-};
+// const openExternalLink = (url) => {
+//   if (url) {
+//     window.open(url, '_blank', 'noopener,noreferrer');
+//   }
+// };
 
 const copyToClipboard = async (text) => {
   try {

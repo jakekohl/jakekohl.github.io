@@ -4,7 +4,7 @@
  * @returns {Cypress.Chainable} - The element
  */
 Cypress.Commands.add('getDataTest', (selector) => {
-  return cy.get(`[data-test=${selector}]`)
+  return cy.get(`[data-test=${selector}]`);
 });
 
 /**
@@ -14,5 +14,5 @@ Cypress.Commands.add('getDataTest', (selector) => {
  * @returns {Cypress.Chainable} - The element
  */
 Cypress.Commands.add('clickDataTest', (selector, options) => {
-  return cy.getDataTest(selector).click(options)
+  return cy.getDataTest(selector).click(options);
 });
