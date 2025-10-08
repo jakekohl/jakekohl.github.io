@@ -27,7 +27,27 @@ const ongoingProjects = ref([
     ],
     dataTest: 'project-portfolio',
     images: [],
-  }
+  },
+  {
+    title: 'Calculator',
+    description: 'A simple calculator program built with tinker and pytest',
+    technologies: ['Python', 'Tinker', 'Pytest'],
+    skillsLeveraged: [
+      'Object-Oriented Programming',
+      'Unit Testing',
+      'Debugging',
+    ],
+    status: 'In Development',
+    github: 'https://github.com/jakekohl/calculator-project',
+    features: [
+      'Simple calculator interface',
+      'Basic arithmetic operations',
+      'Unit testing with pytest',
+      'CI/CD Pipeline using GitHub Actions',
+    ],
+    dataTest: 'project-calculator',
+    images: [],
+  },
 ]);
 
 // Completed projects
@@ -38,6 +58,27 @@ const completedProjects = ref([
 // Computed properties to check if sections have projects
 const hasOngoingProjects = computed(() => ongoingProjects.value.length > 0);
 const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
+
+// Methods for handling external navigation
+const openExternalLink = (url) => {
+  if (url) {
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error('Failed to open external link:', error);
+      // Fallback: try to navigate in the same window
+      window.location.href = url;
+    }
+  }
+};
+
+const openGithubRepo = (githubUrl) => {
+  openExternalLink(githubUrl);
+};
+
+const openLiveDemo = (demoUrl) => {
+  openExternalLink(demoUrl);
+};
 </script>
 
 <template>
@@ -146,14 +187,14 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
                   icon="pi pi-github" 
                   outlined
                   data-test="project-code-button"
-                  @click="window.open(project.github, '_blank')"
+                  @click="openGithubRepo(project.github)"
                 />
                 <PrimeButton 
                   v-if="project.demo"
                   label="Live Demo" 
                   icon="pi pi-external-link" 
                   data-test="project-demo-button"
-                  @click="window.open(project.demo, '_blank')"
+                  @click="openLiveDemo(project.demo)"
                 />
               </div>
             </template>
@@ -253,13 +294,13 @@ const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
                   label="View Code" 
                   icon="pi pi-github" 
                   outlined 
-                  @click="window.open(project.github, '_blank')"
+                  @click="openGithubRepo(project.github)"
                 />
                 <PrimeButton 
                   v-if="project.demo"
                   label="Live Demo" 
                   icon="pi pi-external-link" 
-                  @click="window.open(project.demo, '_blank')"
+                  @click="openLiveDemo(project.demo)"
                 />
               </div>
             </template>
