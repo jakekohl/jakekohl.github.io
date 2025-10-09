@@ -48,6 +48,35 @@ const ongoingProjects = ref([
     dataTest: 'project-calculator',
     images: [],
   },
+  {
+    title: 'Nurtured Heart AI',
+    description: 'A web service that generates heartfelt, meaningful compliments using the Nurtured Heart Approach. Features local LLM processing with Ollama and a beautiful Vue.js frontend.',
+    technologies: ['Vue.js', 'Python', 'FastAPI', 'Ollama', 'PrimeVue', 'Vite', 'Llama 3.2', 'Docker'],
+    skillsLeveraged: [
+      'Full-Stack Development',
+      'Local LLM Integration',
+      'API Design & Development',
+      'Vue.js Development',
+      'Python Backend Development',
+      'AI/ML Application Architecture',
+      'Prompt Engineering',
+      'Docker Containerization',
+      'Responsive UI Design'
+    ],
+    status: 'In Development',
+    github: 'https://github.com/jakekohl/nurtured-heart-ai',
+    demo: 'https://nurtured-heart-ai.vercel.app',
+    features: [
+      'Local LLM-powered compliment generation with Ollama',
+      'Nurtured Heart Approach methodology integration',
+      'FastAPI backend with real-time processing',
+      'Beautiful Vue.js + PrimeVue frontend',
+      'Personalized compliments with context and tone options',
+      'Containerized deployment with Docker',
+    ],
+    dataTest: 'project-nurtured-heart-ai',
+    images: [],
+  },
 ]);
 
 // Completed projects
