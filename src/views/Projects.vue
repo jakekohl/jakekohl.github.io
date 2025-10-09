@@ -48,6 +48,32 @@ const ongoingProjects = ref([
     dataTest: 'project-calculator',
     images: [],
   },
+  {
+    title: 'Nurtured Heart AI',
+    description: 'An innovative AI-powered application leveraging Large Language Models (LLM) to provide supportive guidance and interactions based on the Nurtured Heart Approach principles.',
+    technologies: ['Python', 'OpenAI API', 'LangChain', 'Streamlit', 'Natural Language Processing', 'Machine Learning'],
+    skillsLeveraged: [
+      'AI/ML Development',
+      'Large Language Model Integration',
+      'Natural Language Processing',
+      'API Integration',
+      'Prompt Engineering',
+      'AI Application Architecture',
+      'Python Programming',
+      'User Experience Design'
+    ],
+    status: 'In Development',
+    github: 'https://github.com/jakekohl/nurtured-heart-ai',
+    features: [
+      'LLM-powered conversational interface',
+      'Nurtured Heart Approach methodology integration',
+      'Real-time AI response generation',
+      'Customizable interaction parameters',
+      'User-friendly web interface',
+    ],
+    dataTest: 'project-nurtured-heart-ai',
+    images: [],
+  },
 ]);
 
 // Completed projects
