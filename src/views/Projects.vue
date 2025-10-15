@@ -51,7 +51,7 @@ const ongoingProjects = ref([
   {
     title: 'Nurtured Heart AI',
     description: 'A web service that generates heartfelt, meaningful compliments using the Nurtured Heart Approach. Features local LLM processing with Ollama and a beautiful Vue.js frontend.',
-    technologies: ['Vue.js', 'Python', 'FastAPI', 'Ollama', 'PrimeVue', 'Vite', 'Llama 3.2', 'Docker'],
+    technologies: ['Vue.js', 'Python', 'FastAPI', 'Ollama', 'PrimeVue', 'Vite', 'Google Gemini', 'Docker'],
     skillsLeveraged: [
       'Full-Stack Development',
       'Local LLM Integration',
@@ -61,7 +61,10 @@ const ongoingProjects = ref([
       'AI/ML Application Architecture',
       'Prompt Engineering',
       'Docker Containerization',
-      'Responsive UI Design'
+      'Responsive UI Design',
+      'Google Gemini API Integration',
+      'Cypress End-to-End Testing',
+      'CI/CD Pipeline using GitHub Actions',
     ],
     status: 'In Development',
     github: 'https://github.com/jakekohl/nurtured-heart-ai',
