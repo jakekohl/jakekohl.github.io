@@ -97,7 +97,7 @@ const downloadResume = () => {
       <div class="hero-content">
         <div class="hero-text">
           <h1 class="hero-title">
-            Hi, I'm 
+            Hi, I'm
             <span class="name-highlight">Jake Kohl</span>
           </h1>
           <h2 class="hero-subtitle">
@@ -108,26 +108,27 @@ const downloadResume = () => {
             With an automation first approach to testing and significant experience in <b>technical support</b>, I strive to create scalable testing strategies that does not compromise on speed or quality.
           </p>
           <div class="hero-actions">
-            <PrimeButton 
-              label="View My Work" 
-              icon="pi pi-briefcase" 
+            <CustomButton
+              label="View My Work"
+              icon="pi pi-briefcase"
               size="large"
+              variant="gradient"
               data-test="hero-projects-button"
               @click="navigateToSection('/projects')"
             />
-            <PrimeButton 
-              label="Download Resume" 
-              icon="pi pi-download" 
+            <CustomButton
+              label="Download Resume"
+              icon="pi pi-download"
               severity="secondary"
               size="large"
-              outlined
+              variant="outline"
               data-test="hero-resume-button"
               @click="downloadResume"
             />
           </div>
         </div>
         <div class="hero-image">
-          <PrimeAvatar 
+          <PrimeAvatar
             image="https://avatars.githubusercontent.com/u/9215669?v=4"
             size="xlarge"
             shape="circle"
@@ -143,9 +144,9 @@ const downloadResume = () => {
       <h1 class="section-title">Professional Experience (Years)</h1>
       <div class="content-wrapper">
         <div class="stats-grid">
-          <div 
-            v-for="stat in stats" 
-            :key="stat.label" 
+          <div
+            v-for="stat in stats"
+            :key="stat.label"
             class="stat-card"
             :data-test="`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`"
           >
@@ -169,9 +170,9 @@ const downloadResume = () => {
         <h3 class="section-title">Technical Expertise</h3>
         <h4 class="skill-category">Development</h4>
         <div class="skills-grid" data-test="skill-domain-development">
-          <div 
-            v-for="skill in devSkills" 
-            :key="skill.name" 
+          <div
+            v-for="skill in devSkills"
+            :key="skill.name"
             class="skill-item"
           >
             <div class="skill-header">
@@ -181,9 +182,9 @@ const downloadResume = () => {
         </div>
         <h4 class="skill-category">Testing</h4>
         <div class="skills-grid" data-test="skill-domain-testing">
-          <div 
-            v-for="skill in testSkills" 
-            :key="skill.name" 
+          <div
+            v-for="skill in testSkills"
+            :key="skill.name"
             class="skill-item"
           >
             <div class="skill-header">
@@ -193,9 +194,9 @@ const downloadResume = () => {
         </div>
         <h4 class="skill-category">Infrastructure</h4>
         <div class="skills-grid" data-test="skill-domain-infrastructure">
-          <div 
-            v-for="skill in infrastructureSkills" 
-            :key="skill.name" 
+          <div
+            v-for="skill in infrastructureSkills"
+            :key="skill.name"
             class="skill-item"
           >
             <div class="skill-header">
@@ -205,9 +206,9 @@ const downloadResume = () => {
         </div>
         <h4 class="skill-category">Support</h4>
         <div class="skills-grid" data-test="skill-domain-support">
-          <div 
-            v-for="skill in supportSkills" 
-            :key="skill.name" 
+          <div
+            v-for="skill in supportSkills"
+            :key="skill.name"
             class="skill-item"
           >
             <div class="skill-header">
@@ -217,9 +218,9 @@ const downloadResume = () => {
         </div>
         <h4 class="skill-category">Soft Skills</h4>
         <div class="skills-grid" data-test="skill-domain-soft-skills">
-          <div 
-            v-for="skill in softSkills" 
-            :key="skill.name" 
+          <div
+            v-for="skill in softSkills"
+            :key="skill.name"
             class="skill-item"
           >
             <div class="skill-header">
@@ -238,10 +239,11 @@ const downloadResume = () => {
             <div class="cta-content">
               <h3>Ready to Work Together?</h3>
               <p>I'm always interested in new opportunities and exciting projects. Let's connect!</p>
-              <PrimeButton 
-                label="Get in Touch" 
-                icon="pi pi-envelope" 
+              <CustomButton
+                label="Get in Touch"
+                icon="pi pi-envelope"
                 size="large"
+                variant="gradient"
                 data-test="contact-cta-button"
                 @click="navigateToSection('/contact')"
               />
@@ -256,15 +258,31 @@ const downloadResume = () => {
 <style scoped>
 .home-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Hero Section */
 .hero-section {
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: var(--spacing-12) var(--spacing-4);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-blue-dark) 50%, var(--color-accent-blue-darker) 100%);
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .hero-content {
@@ -272,47 +290,50 @@ const downloadResume = () => {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 4rem;
+  gap: var(--spacing-16);
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-text {
-  color: white;
+  color: var(--color-text-white);
 }
 
 .hero-title {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.1;
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+  line-height: var(--line-height-tight);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .name-highlight {
-  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+  background: var(--color-accent-orange, #fd9744);
+  -webkit-text-stroke: 0.5px rgb(41, 40, 40);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .hero-subtitle {
-  font-size: 1.75rem;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-normal);
+  margin-bottom: var(--spacing-6);
   color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-description {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-8);
   color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-4);
   flex-wrap: wrap;
 }
 
@@ -325,110 +346,123 @@ const downloadResume = () => {
 .profile-avatar {
   width: 250px !important;
   height: 250px !important;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
-  color: white !important;
+  background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-blue-dark) 100%) !important;
+  color: var(--color-text-white) !important;
   font-size: 6rem !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-2xl);
 }
 
 /* Stats Section */
 .stats-section {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 4rem 0;
+  background: var(--color-background-secondary);
+  padding: var(--spacing-16) 0;
 }
 
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--spacing-4);
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: var(--spacing-8);
 }
 
 .stat-card-inner {
   background: rgba(255, 255, 255, 0.95);
   border: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-xl);
+  transition: var(--transition-base);
 }
 
 .stat-card-inner:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-2xl);
 }
 
 .stat-content {
   text-align: center;
-  padding: 1rem;
+  padding: var(--spacing-4);
 }
 
 .stat-icon {
-  font-size: 2.5rem;
-  color: #6366f1;
-  margin-bottom: 1rem;
+  font-size: var(--font-size-5xl);
+  color: #f97316;
+  margin-bottom: var(--spacing-4);
 }
 
 .stat-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
 }
 
 .stat-label {
-  font-size: 1rem;
-  color: #64748b;
-  font-weight: 500;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
 }
 
 /* Skills Preview Section */
 .skills-preview-section {
-  background: white;
-  padding: 4rem 0;
+  background: var(--color-background-primary);
+  padding: var(--spacing-16) 0;
 }
 
 .section-title {
   text-align: center;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
-  color: #1e293b;
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-12);
+  color: var(--color-text-primary);
+}
+
+.skill-category {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-6);
+  margin-top: var(--spacing-8);
 }
 
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-12);
 }
 
 .skill-item {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: var(--color-background-primary);
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-base);
+  transition: var(--transition-base);
+}
+
+.skill-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .skill-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-4);
 }
 
 .skill-name {
-  font-weight: 600;
-  color: #374151;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
 }
 
 .skill-percentage {
-  font-weight: 600;
-  color: #6366f1;
+  font-weight: var(--font-weight-semibold);
+  color: #f97316;
 }
 
 .skill-progress {
@@ -441,78 +475,83 @@ const downloadResume = () => {
 
 /* CTA Section */
 .cta-section {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  padding: 4rem 0;
+  background: var(--gradient-hero-alt);
+  padding: var(--spacing-16) 0;
 }
 
 .cta-card {
   max-width: 600px;
   margin: 0 auto;
   border: none;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-2xl);
 }
 
 .cta-content {
   text-align: center;
-  padding: 2rem;
+  padding: var(--spacing-8);
 }
 
 .cta-content h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #1e293b;
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-text-primary);
 }
 
 .cta-content p {
-  font-size: 1.25rem;
-  color: #64748b;
-  margin-bottom: 2rem;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-8);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .hero-section {
+    min-height: 60vh;
+    padding: var(--spacing-8) var(--spacing-4);
+  }
+
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2rem;
+    gap: var(--spacing-8);
   }
-  
+
   .hero-title {
-    font-size: 2.5rem;
+    font-size: var(--font-size-5xl);
   }
-  
+
   .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: var(--font-size-xl);
   }
-  
+
   .hero-description {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
   }
-  
+
   .hero-actions {
     justify-content: center;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .profile-avatar {
     width: 180px !important;
     height: 180px !important;
     font-size: 4rem !important;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: var(--spacing-4);
   }
-  
+
   .section-title {
-    font-size: 2rem;
+    font-size: var(--font-size-4xl);
   }
-  
+
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: var(--spacing-4);
   }
 }
 

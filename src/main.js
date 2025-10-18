@@ -6,7 +6,18 @@ import router from './router';
 
 const app = createApp(App);
 
+// PrimeVue configuration with orange theme
+app.use(PrimeVue, { 
+  ripple: true,
+  theme: {
+    preset: 'aura',
+    options: {
+      darkModeSelector: false,
+      cssLayer: false
+    }
+  }
+});
+
 app.use(router);
-app.use(PrimeVue, { ripple: true });
 app.use(primevueConfig);
 app.mount('#app');

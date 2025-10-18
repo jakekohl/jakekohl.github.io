@@ -17,8 +17,8 @@ import TopNav from './components/TopNav.vue';
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: var(--font-family-primary);
+  background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-blue-dark) 50%, var(--color-accent-blue-darker) 100%);
   min-height: 100vh;
 }
 
@@ -27,6 +27,7 @@ body {
 }
 
 main {
-  padding-top: 1rem;
+  padding-top: 80px; /* Account for fixed navigation height */
 }
+
 </style>
