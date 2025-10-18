@@ -1,93 +1,31 @@
 <script setup>
 import { ref, computed } from 'vue';
 
-// Ongoing projects (In Development, Planning, etc.)
-const ongoingProjects = ref([
-  {
-    title: 'Personal Portfolio Website',
-    description: 'A modern, responsive Vue.js portfolio built with PrimeVue components, featuring automated testing with Cypress and Playwright.',
-    technologies: ['Vue.js', 'PrimeVue', 'Vite', 'Cypress', 'Playwright'],
-    skillsLeveraged: [
-      'Frontend Development',
-      'Component Architecture', 
-      'Automated Testing',
-      'Responsive Design',
-      'Git Version Control',
-      'CI/CD Pipeline',
-      'AI Agentic Development'
-    ],
-    status: 'In Development',
-    github: 'https://github.com/jakekohl/jakekohl.github.io',
-    demo: 'https://jakekohl.github.io',
-    features: [
-      'Responsive design with professional styling',
-      'Component-based architecture',
-      'Automated testing setup',
-      'GitHub Pages deployment',
-    ],
-    dataTest: 'project-portfolio',
-    images: [],
-  },
-  {
-    title: 'Calculator',
-    description: 'A simple calculator program built with tinker and pytest',
-    technologies: ['Python', 'Tinker', 'Pytest'],
-    skillsLeveraged: [
-      'Object-Oriented Programming',
-      'Unit Testing',
-      'Debugging',
-    ],
-    status: 'In Development',
-    github: 'https://github.com/jakekohl/calculator-project',
-    features: [
-      'Simple calculator interface',
-      'Basic arithmetic operations',
-      'Unit testing with pytest',
-      'CI/CD Pipeline using GitHub Actions',
-    ],
-    dataTest: 'project-calculator',
-    images: [],
-  },
-  {
-    title: 'Nurtured Heart AI',
-    description: 'A web service that generates heartfelt, meaningful compliments using the Nurtured Heart Approach. Features local LLM processing with Ollama and a beautiful Vue.js frontend.',
-    technologies: ['Vue.js', 'Python', 'FastAPI', 'Ollama', 'PrimeVue', 'Vite', 'Google Gemini', 'Docker'],
-    skillsLeveraged: [
-      'Full-Stack Development',
-      'Local LLM Integration',
-      'API Design & Development',
-      'Vue.js Development',
-      'Python Backend Development',
-      'AI/ML Application Architecture',
-      'Prompt Engineering',
-      'Docker Containerization',
-      'Responsive UI Design',
-      'Google Gemini API Integration',
-      'Cypress End-to-End Testing',
-      'CI/CD Pipeline using GitHub Actions',
-    ],
-    status: 'In Development',
-    github: 'https://github.com/jakekohl/nurtured-heart-ai',
-    demo: 'https://nurtured-heart-ai.vercel.app',
-    features: [
-      'Local LLM-powered compliment generation with Ollama',
-      'Nurtured Heart Approach methodology integration',
-      'FastAPI backend with real-time processing',
-      'Beautiful Vue.js + PrimeVue frontend',
-      'Personalized compliments with context and tone options',
-      'Containerized deployment with Docker',
-    ],
-    dataTest: 'project-nurtured-heart-ai',
-    images: [],
-  },
-]);
+import { onMounted } from 'vue';
 
-// Completed projects
-const completedProjects = ref([
-  // Add completed projects here when available
-]);
+const projects = ref([]);
 
-// Computed properties to check if sections have projects
+const fetchProjects = async () => {
+  try {
+    const response = await fetch('https://portfolio.jakekohl.dev/projects');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    projects.value = data;
+  } catch (error) {
+    console.error('Failed to fetch projects:', error);
+    projects.value = [];
+  }
+};
+
+onMounted(() => {
+  fetchProjects();
+});
+
+const ongoingProjects = computed(() => projects.value.filter(project => project.status === 'In Development') || []);
+const completedProjects = computed(() => projects.value.filter(project => project.status === 'Completed') || []);
+
 const hasOngoingProjects = computed(() => ongoingProjects.value.length > 0);
 const hasCompletedProjects = computed(() => completedProjects.value.length > 0);
 
@@ -135,19 +73,19 @@ const openLiveDemo = (demoUrl) => {
           </h2>
           <p class="section-subtitle">Projects currently in development</p>
         </div>
-        
+
         <div class="projects-grid" data-test="ongoing-projects">
-          <PrimeCard 
-            v-for="project in ongoingProjects" 
-            :key="project.title" 
+          <PrimeCard
+            v-for="project in ongoingProjects"
+            :key="project.title"
             class="project-card"
             :data-test="project.dataTest"
           >
             <template #header>
               <div class="project-header">
                 <h3 class="project-title" data-test="project-title">{{ project.title }}</h3>
-                <PrimeTag 
-                  :value="project.status" 
+                <PrimeTag
+                  :value="project.status"
                   :severity="project.status === 'In Development' ? 'info' : 'warning'"
                   class="project-status"
                   data-test="project-status"
@@ -156,18 +94,18 @@ const openLiveDemo = (demoUrl) => {
             </template>
             <template #content>
               <p class="project-description" data-test="project-description">{{ project.description }}</p>
-              
+
               <!-- Project Images -->
               <div v-if="project.images && project.images.length > 0" class="project-images" data-test="project-images">
                 <h4>Project Screenshots:</h4>
                 <div class="images-grid">
-                  <div 
-                    v-for="(image, index) in project.images" 
+                  <div
+                    v-for="(image, index) in project.images"
                     :key="index"
                     class="image-container"
                   >
-                    <img 
-                      :src="image.src" 
+                    <img
+                      :src="image.src"
                       :alt="image.alt"
                       class="project-image"
                       @error="$event.target.style.display='none'"
@@ -176,14 +114,14 @@ const openLiveDemo = (demoUrl) => {
                   </div>
                 </div>
               </div>
-              
+
               <div class="project-technologies" data-test="project-technologies">
                 <h4>Technologies Used:</h4>
                 <div class="tech-chips">
-                  <PrimeChip 
-                    v-for="tech in project.technologies" 
-                    :key="tech" 
-                    :label="tech" 
+                  <PrimeChip
+                    v-for="tech in project.technologies"
+                    :key="tech"
+                    :label="tech"
                     class="tech-chip"
                   />
                 </div>
@@ -192,10 +130,10 @@ const openLiveDemo = (demoUrl) => {
               <div v-if="project.skillsLeveraged" class="project-skills" data-test="project-skills">
                 <h4>Skills Leveraged:</h4>
                 <div class="skills-chips">
-                  <PrimeChip 
-                    v-for="skill in project.skillsLeveraged" 
-                    :key="skill" 
-                    :label="skill" 
+                  <PrimeChip
+                    v-for="skill in project.skillsLeveraged"
+                    :key="skill"
+                    :label="skill"
                     class="skill-chip"
                   />
                 </div>
@@ -213,18 +151,18 @@ const openLiveDemo = (demoUrl) => {
             </template>
             <template #footer>
               <div class="project-actions">
-                <PrimeButton 
+                <PrimeButton
                   v-if="project.github"
-                  label="View Code" 
-                  icon="pi pi-github" 
+                  label="View Code"
+                  icon="pi pi-github"
                   outlined
                   data-test="project-code-button"
                   @click="openGithubRepo(project.github)"
                 />
-                <PrimeButton 
+                <PrimeButton
                   v-if="project.demo"
-                  label="Live Demo" 
-                  icon="pi pi-external-link" 
+                  label="Live Demo"
+                  icon="pi pi-external-link"
                   data-test="project-demo-button"
                   @click="openLiveDemo(project.demo)"
                 />
@@ -243,19 +181,19 @@ const openLiveDemo = (demoUrl) => {
           </h2>
           <p class="section-subtitle">Finished projects and accomplishments</p>
         </div>
-        
+
         <div class="projects-grid">
-          <PrimeCard 
-            v-for="project in completedProjects" 
-            :key="project.title" 
+          <PrimeCard
+            v-for="project in completedProjects"
+            :key="project.title"
             class="project-card completed-project"
             :data-test="project.dataTest"
           >
             <template #header>
               <div class="project-header">
                 <h3 class="project-title">{{ project.title }}</h3>
-                <PrimeTag 
-                  value="Completed" 
+                <PrimeTag
+                  value="Completed"
                   severity="success"
                   class="project-status"
                   data-test="project-status"
@@ -264,18 +202,18 @@ const openLiveDemo = (demoUrl) => {
             </template>
             <template #content>
               <p class="project-description">{{ project.description }}</p>
-              
+
               <!-- Project Images -->
               <div v-if="project.images && project.images.length > 0" class="project-images">
                 <h4>Project Screenshots:</h4>
                 <div class="images-grid">
-                  <div 
-                    v-for="(image, index) in project.images" 
+                  <div
+                    v-for="(image, index) in project.images"
                     :key="index"
                     class="image-container"
                   >
-                    <img 
-                      :src="image.src" 
+                    <img
+                      :src="image.src"
                       :alt="image.alt"
                       class="project-image"
                       @error="$event.target.style.display='none'"
@@ -284,14 +222,14 @@ const openLiveDemo = (demoUrl) => {
                   </div>
                 </div>
               </div>
-              
+
               <div class="project-technologies">
                 <h4>Technologies Used:</h4>
                 <div class="tech-chips">
-                  <PrimeChip 
-                    v-for="tech in project.technologies" 
-                    :key="tech" 
-                    :label="tech" 
+                  <PrimeChip
+                    v-for="tech in project.technologies"
+                    :key="tech"
+                    :label="tech"
                     class="tech-chip"
                   />
                 </div>
@@ -300,10 +238,10 @@ const openLiveDemo = (demoUrl) => {
               <div v-if="project.skillsLeveraged" class="project-skills">
                 <h4>Skills Leveraged:</h4>
                 <div class="skills-chips">
-                  <PrimeChip 
-                    v-for="skill in project.skillsLeveraged" 
-                    :key="skill" 
-                    :label="skill" 
+                  <PrimeChip
+                    v-for="skill in project.skillsLeveraged"
+                    :key="skill"
+                    :label="skill"
                     class="skill-chip"
                   />
                 </div>
@@ -321,17 +259,17 @@ const openLiveDemo = (demoUrl) => {
             </template>
             <template #footer>
               <div class="project-actions">
-                <PrimeButton 
+                <PrimeButton
                   v-if="project.github"
-                  label="View Code" 
-                  icon="pi pi-github" 
-                  outlined 
+                  label="View Code"
+                  icon="pi pi-github"
+                  outlined
                   @click="openGithubRepo(project.github)"
                 />
-                <PrimeButton 
+                <PrimeButton
                   v-if="project.demo"
-                  label="Live Demo" 
-                  icon="pi pi-external-link" 
+                  label="Live Demo"
+                  icon="pi pi-external-link"
                   @click="openLiveDemo(project.demo)"
                 />
               </div>
@@ -606,36 +544,36 @@ const openLiveDemo = (demoUrl) => {
   .projects-title {
     font-size: 2rem;
   }
-  
+
   .section-title {
     font-size: 1.5rem;
   }
-  
+
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .images-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .project-header {
     flex-direction: column;
     align-items: flex-start;
     padding: 0 1.5rem;
   }
-  
+
   .project-status {
     margin-left: 0;
     margin-top: 0.5rem;
   }
-  
+
   .project-actions {
     flex-direction: column;
     padding: 0 1.5rem;
   }
-  
+
   .project-description,
   .project-images,
   .project-technologies,

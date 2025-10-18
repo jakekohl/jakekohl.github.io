@@ -1,87 +1,37 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const contactInfo = ref([
-  {
-    type: 'Email',
-    value: 'jacob.jp.kohl@gmail.com',
-    icon: 'pi pi-envelope',
-    link: 'mailto:jacob.jp.kohl@gmail.com',
-    description: 'Best way to reach me for professional inquiries',
-    dataTest: 'contact-email'
-  },
-  {
-    type: 'LinkedIn',
-    value: 'Jacob Kohl',
-    icon: 'pi pi-linkedin',
-    link: 'https://linkedin.com/in/jacob-jp-kohl',
-    description: 'Connect with me professionally',
-    dataTest: 'contact-linkedin'
-  },
-  {
-    type: 'GitHub',
-    value: 'jakekohl',
-    icon: 'pi pi-github',
-    link: 'https://github.com/jakekohl',
-    description: 'Check out my code and projects',
-    dataTest: 'contact-github'
-  },
-  {
-    type: 'Discord',
-    value: 'hawkeye.59',
-    icon: 'pi pi-discord',
-    link: 'https://github.com/jakekohl#:~:text=https%3A//discordapp.com/users/1097326508814639194',
-    description: 'Chat with me on Discord for quick discussions',
-    dataTest: 'contact-discord'
-  },
-  {
-    type: '(Twitter)',
-    value: '@jacobofwonder',
-    icon: 'pi pi-twitter',
-    link: 'https://x.com/jacobofwonder',
-    description: 'I post on X every now and then but it\'s not my main platform',
-    dataTest: 'contact-twitter'
+const contactInfo = ref([]);
+const specialties = ref([]);
+
+const fetchContactInfo = async () => {
+  try {
+    const response = await fetch('https://portfolio.jakekohl.dev/contact');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const contactResponse = await response.json();
+    contactInfo.value = contactResponse.contact;
+    specialties.value = contactResponse.specialties;
+  } catch (error) {
+    console.error('Failed to fetch contact info:', error);
+    contactInfo.value = [];
+    specialties.value = [];
   }
-]);
-
-const specialties = ref([
-  {
-    title: 'Test Automation',
-    description: 'Cypress, Playwright, and comprehensive testing strategies',
-    icon: 'pi pi-cog',
-    dataTest: 'contact-test-automation'
-  },
-  {
-    title: 'Consulting & Mentoring',
-    description: 'Technical guidance, code reviews, and team mentoring',
-    icon: 'pi pi-users',
-    dataTest: 'contact-consulting-mentoring'
-  },
-  { 
-    title: 'Development Side Projects',
-    description: 'Coding, testing, and more! Always learning and growing.',
-    icon: 'pi pi-code',
-    dataTest: 'contact-development-side-projects'
-  }
-]);
-
-// const openExternalLink = (url) => {
-//   if (url) {
-//     window.open(url, '_blank', 'noopener,noreferrer');
-//   }
-// };
+};
 
 const copyToClipboard = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
-    // In a real app, you'd show a toast notification here
-    alert(`Copied ${text} to clipboard!`);
   } catch (err) {
-    console.error('Failed to copy: ', err);
+    console.error('Failed to copy:', err);
   }
 };
-</script>
 
+onMounted(() => {
+  fetchContactInfo();
+});
+</script>
 <template>
   <div class="contact-container">
     <div class="content-wrapper">
@@ -96,8 +46,8 @@ const copyToClipboard = async (text) => {
             Ready to collaborate? Let's discuss your next project!
           </p>
           <p class="contact-description">
-            I'm always excited to work on new projects and help bring your ideas to life. 
-            Whether you need a full-stack developer, testing specialist, or technical consultant, 
+            I'm always excited to work on new projects and help bring your ideas to life.
+            Whether you need a full-stack developer, testing specialist, or technical consultant,
             I'm here to help.
           </p>
         </div>
@@ -108,9 +58,9 @@ const copyToClipboard = async (text) => {
         <section class="contact-methods">
           <h2 class="section-title">Contact Information</h2>
           <div class="contact-grid">
-            <PrimeCard 
-              v-for="contact in contactInfo" 
-              :key="contact.type" 
+            <PrimeCard
+              v-for="contact in contactInfo"
+              :key="contact.type"
               class="contact-card"
               :data-test="contact.dataTest"
             >
@@ -147,9 +97,9 @@ const copyToClipboard = async (text) => {
         <section class="specialties-section">
           <h2 class="section-title">What I Can Help You With</h2>
           <div class="specialties-grid">
-            <PrimeCard 
-              v-for="specialty in specialties" 
-              :key="specialty.title" 
+            <PrimeCard
+              v-for="specialty in specialties"
+              :key="specialty.title"
               class="specialty-card"
               :data-test="specialty.dataTest"
             >
@@ -371,40 +321,40 @@ const copyToClipboard = async (text) => {
   .page-title {
     font-size: 2.5rem;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .specialties-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .contact-card-content {
     text-align: center;
   }
-  
+
   .contact-header {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .contact-value-wrapper {
     justify-content: center;
   }
-  
+
   .contact-actions {
     justify-content: center;
   }
-  
+
   .contact-header {
     margin-bottom: 3rem;
   }
-  
+
   .contact-methods {
     margin-bottom: 3rem;
   }
