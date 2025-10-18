@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useToast } from 'primevue/usetoast';
 
 const contactInfo = ref([]);
 const specialties = ref([]);
