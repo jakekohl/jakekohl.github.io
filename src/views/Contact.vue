@@ -1,11 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const loading = ref(true);
 const contactInfo = ref([]);
 const specialties = ref([]);
 
 const fetchContactInfo = async () => {
   try {
+    loading.value = true;
     const response = await fetch('https://portfolio.jakekohl.dev/contact');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -17,6 +19,8 @@ const fetchContactInfo = async () => {
     console.error('Failed to fetch contact info:', error);
     contactInfo.value = [];
     specialties.value = [];
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -33,7 +37,10 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="contact-container">
+  <div v-if="loading">
+    <PrimeProgressSpinner style="width: 50px; height: 50px;" />
+  </div>
+  <div v-else class="contact-container">
     <div class="content-wrapper">
       <!-- Header Section -->
       <section class="contact-header">

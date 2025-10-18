@@ -1,12 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
-import { onMounted } from 'vue';
-
+const loading = ref(true);
 const projects = ref([]);
 
 const fetchProjects = async () => {
   try {
+    loading.value = true;
     const response = await fetch('https://portfolio.jakekohl.dev/projects');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -16,6 +16,8 @@ const fetchProjects = async () => {
   } catch (error) {
     console.error('Failed to fetch projects:', error);
     projects.value = [];
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -52,7 +54,10 @@ const openLiveDemo = (demoUrl) => {
 </script>
 
 <template>
-  <div class="projects-container">
+  <div v-if="loading">
+    <PrimeProgressSpinner style="width: 50px; height: 50px;" />
+  </div>
+  <div v-else class="projects-container">
     <div class="content-wrapper">
       <div class="projects-header">
         <h1 class="projects-title">

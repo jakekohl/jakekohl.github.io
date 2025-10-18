@@ -9,6 +9,7 @@ import Divider from 'primevue/divider';
 import Panel from 'primevue/panel';
 import Timeline from 'primevue/timeline';
 import ProgressBar from 'primevue/progressbar';
+import ProgressSpinner from 'primevue/progressspinner';
 
 export default {
   install: (app) => {
@@ -23,5 +24,6 @@ export default {
     app.component('PrimePanel', Panel);
     app.component('PrimeTimeline', Timeline);
     app.component('PrimeProgressBar', ProgressBar);
+    app.component('PrimeProgressSpinner', ProgressSpinner);
   },
 };
