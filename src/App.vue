@@ -4,7 +4,7 @@ import TopNav from './components/TopNav.vue';
 
 <template>
   <div id="app" class="min-h-screen">
-    <TopNav />
+    <TopNav data-test="nav-top-menubar" />
     <main>
       <RouterView />
     </main>

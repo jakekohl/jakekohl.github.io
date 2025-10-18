@@ -188,7 +188,7 @@ const openLiveDemo = (demoUrl) => {
           <p class="section-subtitle">Finished projects and accomplishments</p>
         </div>
 
-        <div class="projects-grid">
+        <div class="projects-grid" data-test="completed-projects">
           <PrimeCard
             v-for="project in completedProjects"
             :key="project.title"
@@ -270,6 +270,7 @@ const openLiveDemo = (demoUrl) => {
                   label="View Code"
                   icon="pi pi-github"
                   variant="gradient"
+                  data-test="project-code-button"
                   @click="openGithubRepo(project.github)"
                 />
                 <CustomButton
@@ -277,6 +278,7 @@ const openLiveDemo = (demoUrl) => {
                   label="Live Demo"
                   icon="pi pi-external-link"
                   variant="gradient"
+                  data-test="project-demo-button"
                   @click="openLiveDemo(project.demo)"
                 />
               </div>
