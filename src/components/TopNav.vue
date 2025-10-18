@@ -59,67 +59,92 @@ const isActiveRoute = (label) => {
 </script>
 
 <template>
-  <header data-test="nav-top-menubar">
-    <div class="navigation-wrapper">
-      <PrimeMenubar :model="items" class="professional-menubar">
-        <template #start>
+  <div class="full-width-nav">
+    <div class="nav-container">
+      <div class="nav-content">
+        <div class="nav-left">
           <div class="brand-section" @click="router.push('/')" data-test="brand-slot">
             <span class="brand-text">Jake Kohl</span>
           </div>
-          <Divider type="vertical" />
-        </template>
-        <template #item="{ item, props, hasSubmenu, root }">
-          <a 
-            v-ripple 
-            class="flex items-center nav-item" 
+        </div>
+
+        <nav class="nav-center">
+          <a
+            v-for="item in items"
+            :key="item.label"
+            @click="item.command"
+            class="nav-item"
             :class="{ 'active-nav': isActiveRoute(item.label) }"
-            v-bind="props.action"
             :data-test="item.dataTest"
           >
-            <i :class="item.icon" class="mr-2"></i>
+            <i :class="item.icon" class="nav-icon"></i>
             <span>{{ item.label }}</span>
-            <i v-if="hasSubmenu" :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
           </a>
-        </template>
-        <template #end>
+        </nav>
+
+        <div class="nav-right">
           <div class="social-links">
             <a v-for="link in socialLinks" :key="link.link" :href="link.link" target="_blank" rel="noopener" class="social-link" :data-test="link.dataTest">
               <i :class="link.icon"></i>
             </a>
           </div>
-        </template>
-      </PrimeMenubar>
+        </div>
+      </div>
     </div>
-  </header>
+  </div>
 </template>
 
-<style scoped>
-header {
-  position: sticky;
+<style>
+/* Full width navigation - no scoped styles to avoid conflicts */
+.full-width-nav {
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
+  width: 100vw;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.navigation-wrapper {
+.nav-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.professional-menubar {
-  border: none;
-  background: transparent;
+.nav-content {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
   padding: 0.75rem 0;
+  min-height: 60px;
+  width: 100%;
+}
+
+.nav-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .brand-section {
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .brand-section:hover {
@@ -130,33 +155,42 @@ header {
 .brand-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #1f2937;
   letter-spacing: -0.025em;
 }
 
+
 .nav-item {
-  padding: 0.75rem 1.75rem;
-  margin: 0 0.3rem;
-  border-radius: 1rem;
-  transition: all 0.3s ease;
-  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  color: #6b7280;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .nav-item:hover {
-  background: rgba(99, 102, 241, 0.1);
-  color: #6366f1;
+  background: #fef3c7;
+  color: #f59e0b;
   transform: translateY(-1px);
 }
 
 .active-nav {
-  background: #6366f1;
+  background: #f59e0b;
   color: white !important;
 }
 
 .active-nav:hover {
-  background: #4f46e5;
+  background: #d97706;
   color: white !important;
+}
+
+.nav-icon {
+  font-size: 1rem;
 }
 
 .social-links {
@@ -166,16 +200,21 @@ header {
 }
 
 .social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.5rem;
   border-radius: 50%;
-  transition: all 0.3s ease;
-  color: #64748b;
+  transition: all 0.2s ease;
+  color: #6b7280;
   text-decoration: none;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .social-link:hover {
-  background: rgba(99, 102, 241, 0.1);
-  color: #6366f1;
+  background: #fef3c7;
+  color: #f59e0b;
   transform: scale(1.1);
 }
 
@@ -183,9 +222,14 @@ header {
   .brand-text {
     font-size: 1.25rem;
   }
-  
-  .navigation-wrapper {
+
+  .nav-container {
     padding: 0 0.5rem;
+  }
+
+  .nav-item {
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
   }
 }
 </style>

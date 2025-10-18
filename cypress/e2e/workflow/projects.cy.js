@@ -19,7 +19,7 @@ describe('Projects', () => {
     });
   });
 
-  it.skip('should show a list of completed projects', () => {
+  it('should show a list of completed projects', () => {
     const completedProjects = [];
 
     cy.getDataTest('completed-projects').should('be.visible').within(() => {

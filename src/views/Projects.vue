@@ -1,12 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
-import { onMounted } from 'vue';
-
+const loading = ref(true);
 const projects = ref([]);
 
 const fetchProjects = async () => {
   try {
+    loading.value = true;
     const response = await fetch('https://portfolio.jakekohl.dev/projects');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -16,6 +16,8 @@ const fetchProjects = async () => {
   } catch (error) {
     console.error('Failed to fetch projects:', error);
     projects.value = [];
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -52,7 +54,10 @@ const openLiveDemo = (demoUrl) => {
 </script>
 
 <template>
-  <div class="projects-container">
+  <div v-if="loading">
+    <PrimeProgressSpinner style="width: 50px; height: 50px;" />
+  </div>
+  <div v-else class="projects-container">
     <div class="content-wrapper">
       <div class="projects-header">
         <h1 class="projects-title">
@@ -151,18 +156,19 @@ const openLiveDemo = (demoUrl) => {
             </template>
             <template #footer>
               <div class="project-actions">
-                <PrimeButton
+                <CustomButton
                   v-if="project.github"
                   label="View Code"
                   icon="pi pi-github"
-                  outlined
+                  variant="gradient"
                   data-test="project-code-button"
                   @click="openGithubRepo(project.github)"
                 />
-                <PrimeButton
+                <CustomButton
                   v-if="project.demo"
                   label="Live Demo"
                   icon="pi pi-external-link"
+                  variant="gradient"
                   data-test="project-demo-button"
                   @click="openLiveDemo(project.demo)"
                 />
@@ -182,7 +188,7 @@ const openLiveDemo = (demoUrl) => {
           <p class="section-subtitle">Finished projects and accomplishments</p>
         </div>
 
-        <div class="projects-grid">
+        <div class="projects-grid" data-test="completed-projects">
           <PrimeCard
             v-for="project in completedProjects"
             :key="project.title"
@@ -259,17 +265,20 @@ const openLiveDemo = (demoUrl) => {
             </template>
             <template #footer>
               <div class="project-actions">
-                <PrimeButton
+                <CustomButton
                   v-if="project.github"
                   label="View Code"
                   icon="pi pi-github"
-                  outlined
+                  variant="gradient"
+                  data-test="project-code-button"
                   @click="openGithubRepo(project.github)"
                 />
-                <PrimeButton
+                <CustomButton
                   v-if="project.demo"
                   label="Live Demo"
                   icon="pi pi-external-link"
+                  variant="gradient"
+                  data-test="project-demo-button"
                   @click="openLiveDemo(project.demo)"
                 />
               </div>
@@ -297,128 +306,128 @@ const openLiveDemo = (demoUrl) => {
 <style scoped>
 .projects-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem 0;
+  background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-blue-dark) 50%, var(--color-accent-blue-darker) 100%);
+  padding: var(--spacing-8) 0;
 }
 
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--spacing-4);
 }
 
 .projects-header {
   text-align: center;
-  margin-bottom: 3rem;
-  color: white;
+  margin-bottom: var(--spacing-12);
+  color: var(--color-text-white);
 }
 
 .projects-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .projects-subtitle {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   opacity: 0.9;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .projects-section {
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-16);
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 2.5rem;
-  color: white;
+  margin-bottom: var(--spacing-10);
+  color: var(--color-text-white);
 }
 
 .section-title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-2);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .section-subtitle {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   opacity: 0.8;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: var(--spacing-8);
+  margin-bottom: var(--spacing-12);
 }
 
 .project-card {
   height: fit-content;
-  transition: all 0.3s ease;
+  transition: var(--transition-base);
   border: none;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-3xl);
+  box-shadow: var(--shadow-xl);
   background: rgba(255, 255, 255, 0.95);
   overflow: hidden;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.25), 0 8px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-2xl);
 }
 
 .completed-project {
-  border-left: 4px solid #10b981;
+  border-left: 4px solid var(--color-success);
 }
 
 .project-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 2rem;
-  padding: 1.5rem 1.5rem 0 1.5rem;
+  margin-bottom: var(--spacing-8);
+  padding: var(--spacing-6) var(--spacing-6) 0 var(--spacing-6);
 }
 
 .project-title {
   margin: 0;
-  color: #1e293b;
-  font-size: 1.5rem;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
 }
 
 .project-status {
-  margin-left: 1rem;
+  margin-left: var(--spacing-4);
 }
 
 .project-description {
-  color: #1f2937;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-  font-weight: 500;
-  padding: 0 1.5rem;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-8);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-medium);
+  padding: 0 var(--spacing-6);
 }
 
 .project-images {
-  margin-bottom: 2rem;
-  padding: 0 1.5rem;
+  margin-bottom: var(--spacing-8);
+  padding: 0 var(--spacing-6);
 }
 
 .project-images h4 {
-  color: #1f2937;
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
 }
 
 .images-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
 }
 
 .image-container {
@@ -430,9 +439,9 @@ const openLiveDemo = (demoUrl) => {
   height: auto;
   max-height: 200px;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-base);
+  transition: var(--transition-base);
 }
 
 .project-image:hover {
@@ -440,87 +449,87 @@ const openLiveDemo = (demoUrl) => {
 }
 
 .image-caption {
-  font-size: 0.875rem;
-  color: #4b5563;
-  margin-top: 0.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-2);
   font-style: italic;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .project-technologies h4,
 .project-skills h4,
 .project-features h4 {
-  color: #1f2937;
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
 }
 
 .project-technologies,
 .project-skills,
 .project-features {
-  padding: 0 1.5rem;
+  padding: 0 var(--spacing-6);
 }
 
 .tech-chips,
 .skills-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-8);
 }
 
 .tech-chip {
-  background: #dbeafe;
-  color: #1e40af;
-  border: 2px solid #3b82f6;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+  background: var(--color-primary-lightest);
+  color: var(--color-primary-dark);
+  border: 2px solid var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-sm);
 }
 
 .tech-chip:hover {
-  background: #bfdbfe;
+  background: var(--color-primary-lighter);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .skill-chip {
-  background: #dcfce7;
-  color: #166534;
-  border: 2px solid #22c55e;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(34, 197, 94, 0.2);
+  background: var(--color-success-lightest);
+  color: var(--color-success-dark);
+  border: 2px solid var(--color-success);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-sm);
 }
 
 .skill-chip:hover {
-  background: #bbf7d0;
+  background: var(--color-success-light);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .project-features ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 2rem 0;
+  margin: 0 0 var(--spacing-8) 0;
 }
 
 .project-features li {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
-  color: #4b5563;
-  font-weight: 500;
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
 }
 
 .project-features i {
-  color: #10b981;
+  color: var(--color-success);
 }
 
 .project-actions {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-4);
   flex-wrap: wrap;
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  padding: 0 var(--spacing-6) var(--spacing-6) var(--spacing-6);
 }
 
 .coming-soon {
@@ -531,27 +540,27 @@ const openLiveDemo = (demoUrl) => {
   max-width: 500px;
   margin: 0 auto;
   border: none;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-3xl);
+  box-shadow: var(--shadow-xl);
   background: rgba(255, 255, 255, 0.95);
 }
 
 .text-primary {
-  color: #6366f1 !important;
+  color: var(--color-primary) !important;
 }
 
 @media (max-width: 768px) {
   .projects-title {
-    font-size: 2rem;
+    font-size: var(--font-size-4xl);
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: var(--font-size-3xl);
   }
 
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--spacing-6);
   }
 
   .images-grid {
@@ -561,17 +570,17 @@ const openLiveDemo = (demoUrl) => {
   .project-header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 1.5rem;
+    padding: 0 var(--spacing-6);
   }
 
   .project-status {
     margin-left: 0;
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-2);
   }
 
   .project-actions {
     flex-direction: column;
-    padding: 0 1.5rem;
+    padding: 0 var(--spacing-6);
   }
 
   .project-description,
@@ -579,7 +588,7 @@ const openLiveDemo = (demoUrl) => {
   .project-technologies,
   .project-skills,
   .project-features {
-    padding: 0 1.5rem;
+    padding: 0 var(--spacing-6);
   }
 }
 </style>
